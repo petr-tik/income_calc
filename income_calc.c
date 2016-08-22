@@ -2,6 +2,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <float.h>
+#include <string.h>
 #include "income_calc.h"
 #include "parser.h"
 
@@ -52,7 +53,7 @@ int print_salary_stats(float *salary_after_tax, tax_t country) {
 } else {
     printf("Salary after tax: %.2f %s\n", *salary_after_tax, country.SIGN); 
     printf("Your monthly allowance: %.2f %s\n", *salary_after_tax/12, country.SIGN);
-    printf("Your weekly allowance: %.2f %s\n", *salary_after_tax/52, country.SIGN,);
+    printf("Your weekly allowance: %.2f %s\n", *salary_after_tax/52, country.SIGN);
 } // end else
   return 0;
 }
@@ -102,21 +103,21 @@ int main(int argc, char *argv[]) {
   int scenario = (arg_options->location) * check_options(arg_options);
 
   switch(scenario){
-    case 0:
-      errno = UK_full(salary_ptr, ptr_taxes_paid, country);
+    case 1:
+      errno = UK_full(salary_ptr, ptr_taxes_paid);
       break;
 
-    case 1:
-      break;
- 
     case 2:
       break;
-
+ 
     case 3:
       break;
 
+    case 6:
+      break;
+
     default:
-      printf("activated default - value of options->location = %d\n", options->location);
+      printf("activated default - value of options->location = %d\n", arg_options->location);
       break;
 }
 
@@ -128,7 +129,7 @@ int main(int argc, char *argv[]) {
     return 1;
 } // end else
 
-  free(options);
+  free(arg_options);
   return 0;
 }
 
