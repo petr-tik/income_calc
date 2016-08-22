@@ -2,7 +2,7 @@
 #define _INCOME_CALC_H 
 
 // length of taxrates and salary_limits array. 
-int NUM_TAXES = 10;
+#define NUM_TAXES 10
 
 typedef struct tax_t {
   float TAXRATES[NUM_TAXES];
