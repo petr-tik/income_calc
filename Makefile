@@ -2,7 +2,9 @@ OS := $(shell uname)
 
 CC=gcc
 CFLAGS=-g -Wall
-SRCS=income_calc.c parser.c
+LIBS=-lm
+
+SRCS=parser.c income_calc.c #uses implicit rules to make object files
 OBJS=$(SRCS:.c=.o)
 # define the C object files 
 #
@@ -11,14 +13,18 @@ OBJS=$(SRCS:.c=.o)
 #         For each word in 'name' replace 'string1' with 'string2'
 # Below we are replacing the suffix .c of all words in the macro SRCS
 # with the .o suffix
-LIBS=-lm
 
-default: test
+.PHONY: clean
 
-%.o: %.c $(DEPS)
-        $(CC) $(CFLAGS) -c -o $@ $<
-# -c just compiles object files without linking
-# $@ macro takes the 
+default: income_calc
+
+%.o : %.c
+	$(CC) -c $(CFLAGS) $< -o $@
 
 income_calc: $(OBJS)
-        $(CC) $(CFLAGS) -o $@
+	$(CC) $(CFLAGS) $(OBJS) -o $@ $(LIBS)
+
+clean:
+	rm $(OBJS)
+
+
