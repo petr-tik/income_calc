@@ -1,3 +1,10 @@
+## 21-22/8
+
+Split income_calc into separate repo, using git subtree split and git pull into a new repo. Very clean - thanks git. 
+
+Working out the specifics of Makefile. I don't have tests (yet), so no test recipe, but when I do, I should be able to run through the test suite with a simple ```bash make test```
+
+
 ## 17/8
 
 There are 2 decisions to make about calculating income:
