@@ -7,12 +7,8 @@
 
 /* Module responsible for parsing the command line arguments.
    Receives argc and argv and iterates over them to fill in a previously initialised 
- */ 
 
-// testing, run
-// gcc parser.c -o test
-
-/* Given a string of chars from the command line, return a struct with flags filled in 
+Given a string of chars from the command line, return a struct with flags filled in 
 allowed options:
    -a <amount>
    -l <location> [uk | NYC | russia | cali(fornia) | sea(ttle)
@@ -145,12 +141,3 @@ int check_options(options_t *options) {
   return ret;
 }
 
-int main(int argc, char *argv[]) {
-// testing it out
-  options_t * options = options_init();
-  parser(argc, argv, options);
-  print_options(options);
-  printf("The check_options return is %d\n", check_options(options));
-  free(options);
-  return 0;
-}
