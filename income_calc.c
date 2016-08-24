@@ -30,12 +30,17 @@ int calc_taxes(float *salary_ptr, float *taxes_paid, tax_t tax_rules) {
   float salary = *salary_ptr;
 
   int idx = 0;
-  while (salary > tax_rules.SALARY_LIMITS[idx]) {
+  float taxes_paid_at_bracket = 0;
+  while (salary > tax_rules.SALARY_LIMITS[idx]) 
+{
     idx += 1;
 }
   idx -= 1; // incremented one too many times
-  for(idx; idx > -1; idx--) {
-    *taxes_paid += tax_rules.TAXRATES[idx]/100*(salary - tax_rules.SALARY_LIMITS[idx]);
+  for(idx; idx > -1; idx--) 
+{
+    taxes_paid_at_bracket = tax_rules.TAXRATES[idx]/\
+                            100*(salary - tax_rules.SALARY_LIMITS[idx]);
+    *taxes_paid += taxes_paid_at_bracket;
     salary = tax_rules.SALARY_LIMITS[idx];
 }
   return 0;
@@ -46,11 +51,14 @@ int print_salary_stats(float *salary_after_tax, tax_t country) {
   /* Given a pointer to salary after tax value (annual), 
      print out weekly and monthly allowance */
 
-  if (strcmp(country.SIGN, "$") == 0 || strcmp(country.SIGN, "£") == 0) {
+  if (strcmp(country.SIGN, "$") == 0 || strcmp(country.SIGN, "£") == 0) 
+{
     printf("Salary after tax: %s%.2f\n", country.SIGN, *salary_after_tax); 
     printf("Your monthly allowance: %s%.2f\n", country.SIGN, *salary_after_tax/12);
     printf("Your weekly allowance: %s%.2f\n", country.SIGN, *salary_after_tax/52);
-} else {
+} 
+else 
+{
     printf("Salary after tax: %.2f %s\n", *salary_after_tax, country.SIGN); 
     printf("Your monthly allowance: %.2f %s\n", *salary_after_tax/12, country.SIGN);
     printf("Your weekly allowance: %.2f %s\n", *salary_after_tax/52, country.SIGN);
@@ -76,12 +84,14 @@ int UK_full(float *salary_ptr, float *taxes_paid) {
   tax_t NI = UK_NI;
   // apply taxes
   errno = calc_taxes(salary_ptr, taxes_paid, taxes);
-  if (errno == 0) {
+  if (errno == 0) 
+{
     // apply national insurance
     errno = calc_taxes(salary_ptr, taxes_paid, NI);
     if (errno == 0) {
       return ret;
 } 
+
 } // if end
   ret = 1;
   return ret;
@@ -125,7 +135,8 @@ int main(int argc, char *argv[]) {
 {
     *salary_after_tax_ptr = *salary_ptr - *ptr_taxes_paid;
     print_salary_stats(salary_after_tax_ptr, country);
-} else {
+} else 
+{
     return 1;
 } // end else
 
