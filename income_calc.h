@@ -37,7 +37,7 @@ tax_t NYC
 
 int calc_taxes(float *salary_ptr, float *taxes_paid, tax_t tax_rules);
 
-int print_salary_stats(float *salary_after_tax, tax_t country);
+int print_salary_stats(float *salary_after_tax, short int location);
 
 int UK_full(float *salary_ptr, float *taxes_paid);
 
