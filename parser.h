@@ -28,5 +28,4 @@ short int parse_location(const char *loc_arg);
 
 void print_options(struct options_t *options);
 
-
 #endif

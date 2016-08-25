@@ -72,15 +72,15 @@ Use prime numbers as return values, so when multiplied with check_options status
            (strcmp(dest, "ny") == 0) ||
            (strcmp(dest, "nyc") == 0))
 {
-  return 2;
+  return 3;
 } 
   else if (strcmp(dest, "seattle") == 0)
 {
-  return 3;
+  return 5;
 }
   else if ((strcmp(dest, "california") == 0) || (strcmp(dest, "cali") == 0))
 {
-  return 5;
+  return 7;
 }
   else 
 {
