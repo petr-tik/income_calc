@@ -116,16 +116,36 @@ int main(int argc, char *argv[]) {
       break;
 
     case 2:
+      // UK and shares
       break;
  
     case 3:
+      // NYC no shares
+      break;
+
+    case 5:
+      // Seattle_no_shares
       break;
 
     case 6:
+      // NYC and shares
+      break;
+      
+    case 7:
+      // California no shares
       break;
 
+    case 10:
+      // Seattle and shares
+      break;
+
+    case 14:
+      // Cali and shares
+      break;  
+
     default:
-      printf("activated default - value of options->location = %d\n", arg_options->location);
+      printf("Parsed: \n\tsalary amount: %f\n\tlocation: %d\n\tmarried: %d\n ", 
+             arg_options->amount, arg_options->location, arg_options->married);
       break;
 }
 
