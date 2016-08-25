@@ -21,22 +21,23 @@ The main func uses the parser func (which fills in the options struct) to decide
 
 int calc_taxes(float *salary_ptr, float *taxes_paid, tax_t tax_rules) {
   /* Helper function to calculate amount of tax paid, given the rules and the salary. Can be applied for any contribution: NI in the UK, taxes elsewhere. 
-     Given pointers to salary, amount of tax paid, return 0 if no
-     errors.
-     The value under taxes paid will be incremented 
+     Given pointers to: salary, amount of tax paid and the struct of tax rules 
+     return 0 if no errors.
+     The value under taxes_paid will be incremented 
      by the value of tax you pay at every bracket
   */
 
   float salary = *salary_ptr;
-
   int idx = 0;
   float taxes_paid_at_bracket = 0;
   while (salary > tax_rules.SALARY_LIMITS[idx]) 
+  // find out the top tax bracket the salary crosses
 {
     idx += 1;
 }
   idx -= 1; // incremented one too many times
   for(idx; idx > -1; idx--) 
+  // starting from the top bracket, increment the taxes_paid ptr by the amount of tax at the appropriate taxrate
 {
     taxes_paid_at_bracket = tax_rules.TAXRATES[idx]/\
                             100*(salary - tax_rules.SALARY_LIMITS[idx]);
@@ -58,9 +59,9 @@ int print_salary_stats(float *salary_after_tax, short int location) {
     case 2 ... 4:
       strncpy(sign, "$", 3);
 }      
-    printf("Salary after tax: %.2f %s\n", *salary_after_tax, sign); 
-    printf("Your monthly allowance: %.2f %s\n", *salary_after_tax/12, sign);
-    printf("Your weekly allowance: %.2f %s\n", *salary_after_tax/52, sign);
+    printf("Salary after tax: %s%.2f\n", sign, *salary_after_tax); 
+    printf("Your monthly allowance: %s%.2f\n", sign, *salary_after_tax/12);
+    printf("Your weekly allowance: %s%.2f\n", sign, *salary_after_tax/52);
   return 0;
 }
 
