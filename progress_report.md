@@ -1,3 +1,11 @@
+## 26/8
+
+Reading about efficient encoding and thinking how to change the return codes for different scenarios - 
+country X salary only
+country X salary + shares
+
+Also, realised I am missing abort methods and messages for badly parsed/incomplete input. Should split main into another function.
+
 ## 21-22/8
 
 Split income_calc into separate repo, using git subtree split and git pull into a new repo. Very clean - thanks git. 
