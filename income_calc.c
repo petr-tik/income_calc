@@ -104,11 +104,14 @@ int main(int argc, char *argv[]) {
   float *ptr_taxes_paid = &taxes_paid;
   int errno;
   
-  
   // parser module - create and init an options struct 
   options_t * arg_options = options_init();
   parser(argc, argv, arg_options);
   int scenario = (arg_options->location) * check_options(arg_options);
+  printf("%d\n", scenario);
+
+  printf("Parsed: \n\tsalary amount: %f\n\tlocation: %d\n\tmarried: %d\n ", 
+             arg_options->amount, arg_options->location, arg_options->married);
 
   switch(scenario){
     case 1:
@@ -144,8 +147,7 @@ int main(int argc, char *argv[]) {
       break;  
 
     default:
-      printf("Parsed: \n\tsalary amount: %f\n\tlocation: %d\n\tmarried: %d\n ", 
-             arg_options->amount, arg_options->location, arg_options->married);
+      //
       break;
 }
 
