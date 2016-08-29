@@ -1,3 +1,7 @@
+## 29/8
+
+Idea about debug mode - make a variable that at compile time is set to 0 or 1, which determines if the executable prints all the error debug messages, or does nothing
+
 ## 26/8
 
 Reading about efficient encoding and thinking how to change the return codes for different scenarios - 
