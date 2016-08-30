@@ -1,6 +1,17 @@
-## Income calculator
+### Income calculator
 
-usage: 
+### Install 
+
+Download the repo and run make. 
+```bash
+git clone https://github.com/petr-tik/income_calc.git
+cd income_calc
+make
+```
+
+You should have an executable called ```income_calc```
+
+### Usage: 
 
 ```bash
 ./income_calc -a <amount> -l <location> [-m married]
