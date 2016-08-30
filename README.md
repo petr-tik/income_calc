@@ -16,16 +16,16 @@ You should have an executable called ```income_calc```
 ```bash
 ./income_calc -a <amount> -l <location> [-m married]
 ```
--a - salary offered without currency symbol
-
--l - Tax residence: 
-         
+         -a - salary offered without currency symbol
+         -l - Tax residence: 
          UK, London
          NY, NYC - cannot do New York (separated by a space in terminal)
          Cali, California
          Seattle
 
--s - stock options 
+**Not working yet**
+         
+         -s - stock options 
 
-```-s <amount_of_shares> <stock_quote>```
+         <amount_of_shares> <stock_quote>
 
