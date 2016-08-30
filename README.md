@@ -1,8 +1,8 @@
-### Income calculator
+# Income calculator
 
 ### Install 
 
-Download the repo and run make. 
+Download the repo and run make. _Currently only supports unix-like OS'es, sorry no Windows_
 ```bash
 git clone https://github.com/petr-tik/income_calc.git
 cd income_calc
