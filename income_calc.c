@@ -56,8 +56,14 @@ int print_salary_stats(float *salary_after_tax, short int location) {
 {
     case 1:
       strncpy(sign, "£", 3);
+      break;
+
     case 2 ... 4:
       strncpy(sign, "$", 3);
+      break;
+
+    default:
+      return 1;
 }      
     printf("Salary after tax: %s%.2f\n", sign, *salary_after_tax); 
     printf("Your monthly allowance: %s%.2f\n", sign, *salary_after_tax/12);
@@ -97,9 +103,8 @@ int UK_full(float *salary_ptr, float *taxes_paid) {
 
 int main(int argc, char *argv[]) {
   /* the main initialises the necessary pointers, all functions take at least pointers to salary and taxes_paid. US tax funcs take pointer to married parameter */
-  float salary, salary_after_tax;
-  float *salary_after_tax_ptr = &salary_after_tax;
-  float *salary_ptr = &salary;  
+  float salary_after_tax;
+  float *salary_after_tax_ptr = &salary_after_tax; 
   float taxes_paid = 0;
   float *ptr_taxes_paid = &taxes_paid;
   int errno;
@@ -108,14 +113,17 @@ int main(int argc, char *argv[]) {
   options_t * arg_options = options_init();
   parser(argc, argv, arg_options);
   int scenario = (arg_options->location) * check_options(arg_options);
-  printf("%d\n", scenario);
 
-  printf("Parsed: \n\tsalary amount: %f\n\tlocation: %d\n\tmarried: %d\n ", 
-             arg_options->amount, arg_options->location, arg_options->married);
+  // printf("Parsed: \n\tsalary amount: %f\n\tlocation: %d\n\tmarried: %d\n", 
+  //           arg_options->amount, arg_options->location, arg_options->married);
 
   switch(scenario){
+    case 0:
+      printf("ERROR! Not enough arguments\n");
+      exit(1);
+    
     case 1:
-      errno = UK_full(salary_ptr, ptr_taxes_paid);
+      errno = UK_full(arg_options, ptr_taxes_paid); // first field in struct is salary - pointer to struct = ptr to salary amount
       break;
 
     case 2:
@@ -153,7 +161,7 @@ int main(int argc, char *argv[]) {
 
   if (errno == 0) 
 {
-    *salary_after_tax_ptr = *salary_ptr - *ptr_taxes_paid;
+    *salary_after_tax_ptr = arg_options->amount - *ptr_taxes_paid;
     print_salary_stats(salary_after_tax_ptr, arg_options->location);
 } else 
 {
