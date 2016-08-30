@@ -41,6 +41,7 @@ int calc_taxes(float *salary_ptr, float *taxes_paid, tax_t tax_rules) {
 {
     taxes_paid_at_bracket = tax_rules.TAXRATES[idx]/\
                             100*(salary - tax_rules.SALARY_LIMITS[idx]);
+    printf("At bracket %f, I pay %f\n", tax_rules.TAXRATES[idx], taxes_paid_at_bracket); // debugging
     *taxes_paid += taxes_paid_at_bracket;
     salary = tax_rules.SALARY_LIMITS[idx];
 }
@@ -48,7 +49,7 @@ int calc_taxes(float *salary_ptr, float *taxes_paid, tax_t tax_rules) {
 }
 
 
-int print_salary_stats(float *salary_after_tax, short int location) {
+int print_salary_stats(float *salary_before_tax, float *salary_after_tax, short int location) {
   /* Given a pointer to salary after tax value (annual), 
      print out weekly and monthly allowance */
   char sign[3] = "";
@@ -65,9 +66,10 @@ int print_salary_stats(float *salary_after_tax, short int location) {
     default:
       return 1;
 }      
-    printf("Salary after tax: %s%.2f\n", sign, *salary_after_tax); 
-    printf("Your monthly allowance: %s%.2f\n", sign, *salary_after_tax/12);
-    printf("Your weekly allowance: %s%.2f\n", sign, *salary_after_tax/52);
+  printf("Salary before taxes: %s%.2f\n", sign, *salary_before_tax); 
+  printf("Salary after tax: %s%.2f\n", sign, *salary_after_tax); 
+  printf("Your monthly allowance: %s%.2f\n", sign, *salary_after_tax/12);
+  printf("Your weekly allowance: %s%.2f\n", sign, *salary_after_tax/52);
   return 0;
 }
 
@@ -94,11 +96,11 @@ int UK_full(float *salary_ptr, float *taxes_paid) {
     // apply national insurance
     errno = calc_taxes(salary_ptr, taxes_paid, NI);
     if (errno == 0) {
-      return ret;
+      return errno;
 } 
 } // if end
-  ret = 1;
-  return ret;
+
+  return errno;
 }
 
 int main(int argc, char *argv[]) {
@@ -162,7 +164,7 @@ int main(int argc, char *argv[]) {
   if (errno == 0) 
 {
     *salary_after_tax_ptr = arg_options->amount - *ptr_taxes_paid;
-    print_salary_stats(salary_after_tax_ptr, arg_options->location);
+    print_salary_stats(arg_options, salary_after_tax_ptr, arg_options->location);
 } else 
 {
     return 1;
