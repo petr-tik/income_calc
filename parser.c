@@ -68,8 +68,7 @@ Use prime numbers as return values, so when multiplied with check_options status
 {
   return 1;
 } 
-  else if ((strcmp(dest, "new york") == 0) || 
-           (strcmp(dest, "ny") == 0) ||
+  else if ((strcmp(dest, "ny") == 0) ||
            (strcmp(dest, "nyc") == 0))
 {
   return 3;
