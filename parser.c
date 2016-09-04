@@ -102,7 +102,7 @@ int parser(int argc, char *argv[], struct options_t *options) {
     if (strcmp(argv[idx], "-m") == 0) // set the marriage flag to 1
 {
       options->married = 1; 
-} 
+} // end marriage - how very sad :-)
     else if (strcmp(argv[idx], "-a") == 0) // salary amount
 {
       if (argc >= idx+1) 
@@ -113,11 +113,18 @@ int parser(int argc, char *argv[], struct options_t *options) {
 {
         return 1;
 }
-}
+} // end salary amount
     else if (strcmp(argv[idx], "-l") == 0) // location
+{
+      if (argc >= idx+1) 
 {
       options->location = parse_location(argv[idx+1]);
 }
+      else 
+{
+        return 1;
+}
+} // end location
     else if (strcmp(argv[idx], "-s") == 0) // stock options
 {
       if (argc >= idx+2) {
@@ -128,10 +135,9 @@ int parser(int argc, char *argv[], struct options_t *options) {
 {
         return 1;
 }
-}
+} // end stock options
   return 0;
 }  // for end 
-
 } // parser end
 
 int check_options(options_t *options) {
