@@ -105,7 +105,14 @@ int parser(int argc, char *argv[], struct options_t *options) {
 } 
     else if (strcmp(argv[idx], "-a") == 0) // salary amount
 {
-      options->amount = atof(argv[idx+1]); 
+      if (argc >= idx+1) 
+{
+        options->amount = atof(argv[idx+1]); 
+}
+      else 
+{
+        return 1;
+}
 }
     else if (strcmp(argv[idx], "-l") == 0) // location
 {
@@ -113,14 +120,19 @@ int parser(int argc, char *argv[], struct options_t *options) {
 }
     else if (strcmp(argv[idx], "-s") == 0) // stock options
 {
-      options->stock_amount = atof(argv[idx+1]); // amount 
-      memcpy(options->stock_quote, argv[idx+2], sizeof(argv[idx+2])); // quote
+      if (argc >= idx+2) {
+        options->stock_amount = atof(argv[idx+1]); // amount 
+        memcpy(options->stock_quote, argv[idx+2], sizeof(argv[idx+2])); // quote
 }
-}  // for end
+      else 
+{
+        return 1;
+}
+}
   return 0;
-}
- // parser end
+}  // for end 
 
+} // parser end
 
 int check_options(options_t *options) {
   /* Used after parser. Takes a pointer to options and checks how many option flags have been filled in and returns an action code:
