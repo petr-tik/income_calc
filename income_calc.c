@@ -23,7 +23,7 @@ int calc_taxes(float *salary_ptr, float *taxes_paid, tax_t tax_rules) {
   /* Helper function to calculate amount of tax paid, given the rules and the salary. Can be applied for any contribution: NI in the UK, taxes elsewhere. 
      Given pointers to: salary, amount of tax paid and the struct of tax rules 
      return 0 if no errors.
-     The value under taxes_paid will be incremented 
+     The value on ptr taxes_paid will be incremented 
      by the value of tax you pay at every bracket
   */
 
@@ -109,15 +109,21 @@ int main(int argc, char *argv[]) {
   float *salary_after_tax_ptr = &salary_after_tax; 
   float taxes_paid = 0;
   float *ptr_taxes_paid = &taxes_paid;
-  int errno;
   
   // parser module - create and init an options struct 
   options_t * arg_options = options_init();
-  parser(argc, argv, arg_options);
-  int scenario = (arg_options->location) * check_options(arg_options);
-
-  // printf("Parsed: \n\tsalary amount: %f\n\tlocation: %d\n\tmarried: %d\n", 
-  //           arg_options->amount, arg_options->location, arg_options->married);
+  int errno = parser(argc, argv, arg_options);
+  int options_validity = check_options(arg_options);
+  if (errno != 0 || options_validity == 0)
+{
+  /* If either the parser had difficulty, or the options were checked to be missing information - break now */
+  printf("ERROR! Not enough arguments\n");
+  exit(1);
+}
+  int scenario = (arg_options->location) * options_validity;
+  printf("scenario: %d\n", scenario);
+  printf("Parsed: \n\tsalary amount: %f\n\tlocation: %d\n\tmarried: %d\n", 
+             arg_options->amount, arg_options->location, arg_options->married);
 
   switch(scenario){
     case 0:
