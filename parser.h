@@ -3,6 +3,8 @@
 
 /* Module for CLI interaction - receiving and processing terminal commands, breaking if they are wrong/insufficient, otherwise filling the options struct */
 
+#define VERSION 0.2
+
 void show_version();
 
 void show_help();

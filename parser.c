@@ -24,7 +24,7 @@ void show_help() {
 }
 
 void show_version() {
-  printf("Salary calculator version 0.2\n");
+  printf("Income calculator version %.1f\n", VERSION);
 }
 
 options_t * options_init() {
@@ -90,6 +90,8 @@ Use prime numbers as return values, so when multiplied with check_options status
 
 int parser(int argc, char *argv[], struct options_t *options) {
 /* Given pointers: to arg string and to options struct, modiy the struct at pointer and return info code
+   if succesfully parsed, returns 0
+   else, returns 1
  */
   if (argc == 2 && (strcmp(argv[1], "--version") == 0)) {
       show_version();    
@@ -117,7 +119,7 @@ int parser(int argc, char *argv[], struct options_t *options) {
 {
       if (argc >= idx+1) 
 {
-      options->location = parse_location(argv[idx+1]);
+        options->location = parse_location(argv[idx+1]);
 }
       else 
 {
@@ -135,13 +137,13 @@ int parser(int argc, char *argv[], struct options_t *options) {
         return 1;
 }
 } // end stock options
-  return 0;
 }  // for end 
+  return 0;
 } // parser end
 
 int check_options(options_t *options) {
   /* Used after parser. Takes a pointer to options and checks how many option flags have been filled in and returns an action code:
-   0 - not enough info on necessary info - location and amount
+   0 - not even the obligatory info - location and amount
    1 - only basic info
    2 - full info including stocks
 
