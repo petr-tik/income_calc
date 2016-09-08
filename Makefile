@@ -24,6 +24,9 @@ default: income_calc
 income_calc: $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $@ $(LIBS)
 
+test: income_calc
+	./test_calc.sh
+
 clean:
 	rm $(OBJS)
 
