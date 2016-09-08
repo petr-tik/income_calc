@@ -16,7 +16,6 @@ It also contains country-specific income calculators, which internally process i
 The main func uses the parser func (which fills in the options struct) to decide, what to do along 2 dimensions:
     salary and/or taxes
     country
-
 */
 
 int calc_taxes(float *salary_ptr, float *taxes_paid, tax_t tax_rules) {
@@ -41,7 +40,7 @@ int calc_taxes(float *salary_ptr, float *taxes_paid, tax_t tax_rules) {
 {
     taxes_paid_at_bracket = tax_rules.TAXRATES[idx]/\
                             100*(salary - tax_rules.SALARY_LIMITS[idx]);
-    printf("At bracket %f, I pay %f\n", tax_rules.TAXRATES[idx], taxes_paid_at_bracket); // debugging
+    printf("At bracket %f, I pay %.2f\n", tax_rules.TAXRATES[idx], taxes_paid_at_bracket); // debugging
     *taxes_paid += taxes_paid_at_bracket;
     salary = tax_rules.SALARY_LIMITS[idx];
 }
@@ -108,10 +107,15 @@ int main(int argc, char *argv[]) {
   float salary_after_tax;
   float *salary_after_tax_ptr = &salary_after_tax; 
   float taxes_paid = 0;
-  float *ptr_taxes_paid = &taxes_paid;
+  float *taxes_paid_ptr = &taxes_paid;
   
   // parser module - create and init an options struct 
   options_t * arg_options = options_init();
+  if (salary_after_tax_ptr == NULL || taxes_paid_ptr == NULL 
+      || arg_options == NULL) 
+{
+  exit(1);
+}
   int errno = parser(argc, argv, arg_options);
   int options_validity = check_options(arg_options);
   if (errno != 0 || options_validity == 0)
@@ -131,7 +135,7 @@ int main(int argc, char *argv[]) {
       exit(1);
     
     case 1:
-      errno = UK_full(arg_options, ptr_taxes_paid); // first field in struct is salary - pointer to struct = ptr to salary amount
+      errno = UK_full(arg_options, taxes_paid_ptr); // first field in struct is salary - pointer to struct = ptr to salary amount
       break;
 
     case 2:
@@ -169,7 +173,7 @@ int main(int argc, char *argv[]) {
 
   if (errno == 0) 
 {
-    *salary_after_tax_ptr = arg_options->amount - *ptr_taxes_paid;
+    *salary_after_tax_ptr = arg_options->amount - *taxes_paid_ptr;
     print_salary_stats(arg_options, salary_after_tax_ptr, arg_options->location);
 } else 
 {
