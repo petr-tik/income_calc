@@ -19,8 +19,10 @@ The main func uses the parser func (which fills in the options struct) to decide
 */
 
 int calc_taxes(float *salary_ptr, float *taxes_paid, tax_t tax_rules) {
-  /* Helper function to calculate amount of tax paid, given the rules and the salary. Can be applied for any contribution: NI in the UK, taxes elsewhere. 
-     Given pointers to: salary, amount of tax paid and the struct of tax rules 
+  /* Universal helper function to calculate amount of tax paid, 
+     given the rules and the salary. 
+     Can be applied for any contribution: NI in the UK, taxes elsewhere. 
+     Takes pointers to: salary, amount of tax paid and the struct of tax rules 
      return 0 if no errors.
      The value on ptr taxes_paid will be incremented 
      by the value of tax you pay at every bracket
@@ -36,7 +38,8 @@ int calc_taxes(float *salary_ptr, float *taxes_paid, tax_t tax_rules) {
 }
   idx -= 1; // incremented one too many times
   for(idx; idx > -1; idx--) 
-  // starting from the top bracket, increment the taxes_paid ptr by the amount of tax at the appropriate taxrate
+  // starting from the top bracket, 
+  // increment the taxes_paid ptr by the amount of tax at this tax bracket
 {
     taxes_paid_at_bracket = tax_rules.TAXRATES[idx]/\
                             100*(salary - tax_rules.SALARY_LIMITS[idx]);
@@ -73,7 +76,9 @@ int print_salary_stats(float *salary_before_tax, float *salary_after_tax, short 
 }
 
 int Cali_full(float *salary_ptr, float *taxes_paid, int *married) {
-  /* Helper function that internally calculates all tax contributions including healthcare charges. The value of all taxes paid will be added to the taxes_paid ptr  */ 
+  /* Helper function that calculates all tax contributions 
+     including healthcare charges. 
+     The value of all taxes paid will be added to the taxes_paid ptr  */ 
   return 0;
 }
 
@@ -103,7 +108,9 @@ int UK_full(float *salary_ptr, float *taxes_paid) {
 }
 
 int main(int argc, char *argv[]) {
-  /* the main initialises the necessary pointers, all functions take at least pointers to salary and taxes_paid. US tax funcs take pointer to married parameter */
+  /* the main initialises the necessary pointers, 
+     all functions take at least pointers to salary and taxes_paid. 
+     US tax funcs take pointer to married parameter */
   float salary_after_tax;
   float *salary_after_tax_ptr = &salary_after_tax; 
   float taxes_paid = 0;
@@ -120,7 +127,8 @@ int main(int argc, char *argv[]) {
   int options_validity = check_options(arg_options);
   if (errno != 0 || options_validity == 0)
 {
-  /* If either the parser had difficulty, or the options were checked to be missing information - break now */
+  /* If either the parser had difficulty, 
+     or the options were checked to be missing information - break now */
   printf("ERROR! Not enough arguments\n");
   exit(1);
 }
@@ -135,7 +143,9 @@ int main(int argc, char *argv[]) {
       exit(1);
     
     case 1:
-      errno = UK_full(arg_options, taxes_paid_ptr); // first field in struct is salary - pointer to struct = ptr to salary amount
+      // first field in struct is pointer to struct
+      // the first element of the struct is ptr to salary amount
+      errno = UK_full(arg_options, taxes_paid_ptr); 
       break;
 
     case 2:
