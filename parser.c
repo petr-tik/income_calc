@@ -28,7 +28,7 @@ void show_version() {
 }
 
 options_t * options_init() {
-  /* Given a ptr to options struct, initialise it with default values */
+  /* Initialise an options_t struct with default values */
   options_t *options = malloc(sizeof(struct options_t));
   options->amount = -1;
   options->married = 0; // won't change unless -m option
@@ -41,6 +41,7 @@ options_t * options_init() {
 
 void print_options(struct options_t *options){
   // ONLY FOR DEBUGGING - REMOVE FROM END PRODUCT
+  printf("\n\n\nI am a DEBUGGING function. If you see me, it's in debug mode\n");
   printf("Salary is: %f\n", options->amount);
   printf("You have %.1f shares in %s\n", options->stock_amount, options->stock_quote); 
   if (options->married == 0) {
