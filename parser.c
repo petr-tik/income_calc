@@ -62,8 +62,9 @@ Use prime numbers as return values, so when multiplied with check_options status
 */
   char dest[10];
   strcpy(dest, loc_arg); 
-  for(int idx = 0; idx < strlen(dest); idx++) {
-    dest[idx] = tolower(dest[idx]);
+  for(int idx = 0; idx < strlen(dest); idx++) 
+{
+    dest[idx] = tolower(dest[idx]); 
 } // end for
   if ((strcmp(dest, "uk") == 0) || (strcmp(dest, "london") == 0))
 {
@@ -94,7 +95,9 @@ int parser(int argc, char *argv[], struct options_t *options) {
    if succesfully parsed, returns 0
    else, returns 1
  */
-  if (argc == 2 && (strcmp(argv[1], "--version") == 0)) {
+  if (argc == 2 && ((strcmp(argv[1], "--version") == 0) || 
+                    (strcmp(argv[1], "-v"))) 
+{
       show_version();    
 }
 
