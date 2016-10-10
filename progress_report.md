@@ -1,3 +1,7 @@
+## 05/10
+
+Haven't had time to contribute anyythng, which is a shame. Picking up where I left off. In the future, optimise struct to an array - more efficient for L1 caching, not that it's necessary, but still minor optimisation. 
+
 ## 29/8
 
 Idea about debug mode - make a variable that at compile time is set to 0 or 1, which determines if the executable prints all the error debug messages, or does nothing
@@ -58,7 +62,7 @@ one idea is to use prime numbers for country flag, so they don't intersect. so i
 
 ## 16/8 
 
-Reworked UK_full to have fewer if statements. If applying tax rules returns not 0, no point working further, return 1. Decision tree for UK_full is
+Reworked UK\_full to have fewer if statements. If applying tax rules returns not 0, no point working further, return 1. Decision tree for UK\_full is
 
                             return 0
                           /
@@ -139,7 +143,7 @@ Run and compile the salary_calc.c and it should take your arguments and product 
 * If you are handling a pointer to a struct with an array inside it. You cannot make an assignment to an array stored with a '->' operator, instead you need to use the memcpy function, which requires arguments for: destination, source value, and number of bits of info. 
 * Write and keep a good makefile - it's awesome. 
 * Strings cannot be compared with a '==' operator. Use strcmp instead - it returns the number of bits different between 2 strings. If it returns 0, you have identical strings. 
-* To pass argv to another function, define the function with char *argv[] and pass it directly.
+* To pass argv to another function, define the function with char \*argv[] and pass it directly.
 * It can be useful for a function to return a return code, which will decide what to do next.
 
 
