@@ -96,9 +96,10 @@ int parser(int argc, char *argv[], struct options_t *options) {
    else, returns 1
  */
   if (argc == 2 && ((strcmp(argv[1], "--version") == 0) || 
-                    (strcmp(argv[1], "-v"))) 
+                    (strcmp(argv[1], "-v")) == 0)) 
 {
-      show_version();    
+      show_version();
+      return 1;
 }
 
   for (int idx = 1; idx < argc; idx++) {
