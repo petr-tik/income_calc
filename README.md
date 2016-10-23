@@ -1,4 +1,4 @@
-# Income calculator
+# Income calculator - still not ready, built and use at your own risk
 
 ### Install 
 
@@ -18,12 +18,12 @@ You should have an executable called ```income_calc```
 ```
          -a - salary offered without currency symbol
          -l - Tax residence: 
-         UK, London
-         NY, NYC - cannot do New York (separated by a space in terminal)
-         Cali, California
-         Seattle
+             UK, London
+             NY, NYC - cannot do New York (separated by a space in terminal)
+             Cali, California
+             Seattle
 
-**Not working yet**
+**To do**
          
          -s - stock options 
 
