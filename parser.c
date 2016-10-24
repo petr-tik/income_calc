@@ -93,13 +93,21 @@ Use prime numbers as return values, so when multiplied with check_options status
 int parser(int argc, char *argv[], struct options_t *options) {
 /* Given pointers: to arg string and to options struct, modiy the struct at pointer and return info code
    if succesfully parsed, returns 0
-   else, returns 1
+   if failed, returns 1
+   asking for help, returns -2
+   asking for version number, returns -1
  */
   if (argc == 2 && ((strcmp(argv[1], "--version") == 0) || 
                     (strcmp(argv[1], "-v")) == 0)) 
 {
-      show_version();
-      return 1;
+  printf("it's a version call\n");
+  return -1;
+}
+  if (argc == 2 && ((strcmp(argv[1], "--help") == 0) || 
+                    (strcmp(argv[1], "-h")) == 0))
+{
+  printf("it's a help call\n");
+  return -2;
 }
 
   for (int idx = 1; idx < argc; idx++) {
@@ -133,7 +141,8 @@ int parser(int argc, char *argv[], struct options_t *options) {
 } // end location
     else if (strcmp(argv[idx], "-s") == 0) // stock options
 {
-      if (argc >= idx+2) {
+      if (argc >= idx+2) 
+{
         options->stock_amount = atof(argv[idx+1]); // amount 
         memcpy(options->stock_quote, argv[idx+2], sizeof(argv[idx+2])); // quote
 }

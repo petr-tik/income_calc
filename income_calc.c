@@ -125,6 +125,16 @@ int main(int argc, char *argv[]) {
 }
   int errno = parser(argc, argv, arg_options);
   int options_validity = check_options(arg_options);
+  switch (errno) {
+    case -1:
+      show_version();
+      exit(1);
+ 
+    case -2:
+      show_help();
+      exit(1);
+}
+
   if (errno != 0 || options_validity == 0)
 {
   /* If either the parser had difficulty, 
@@ -133,15 +143,13 @@ int main(int argc, char *argv[]) {
   exit(1);
 }
   int scenario = (arg_options->location) * options_validity;
+  // DEBUGGING ONLY
   printf("scenario: %d\n", scenario);
   printf("Parsed: \n\tsalary amount: %f\n\tlocation: %d\n\tmarried: %d\n", 
              arg_options->amount, arg_options->location, arg_options->married);
 
-  switch(scenario){
-    case 0:
-      printf("ERROR! Not enough arguments\n");
-      exit(1);
-    
+  // logic again
+  switch(scenario){    
     case 1:
       // first field in struct is pointer to struct
       // the first element of the struct is ptr to salary amount
@@ -154,6 +162,7 @@ int main(int argc, char *argv[]) {
  
     case 3:
       // NYC no shares
+      errno = NYC_full(arg_options, taxes_paid_ptr, arg_options->married);
       break;
 
     case 5:
@@ -177,7 +186,7 @@ int main(int argc, char *argv[]) {
       break;  
 
     default:
-      //
+      // nothing
       break;
 }
 
