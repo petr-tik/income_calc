@@ -100,13 +100,11 @@ int parser(int argc, char *argv[], struct options_t *options) {
   if (argc == 2 && ((strcmp(argv[1], "--version") == 0) || 
                     (strcmp(argv[1], "-v")) == 0)) 
 {
-  printf("it's a version call\n");
   return -1;
 }
   if (argc == 2 && ((strcmp(argv[1], "--help") == 0) || 
                     (strcmp(argv[1], "-h")) == 0))
 {
-  printf("it's a help call\n");
   return -2;
 }
 
