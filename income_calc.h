@@ -3,7 +3,7 @@
 
 // length of taxrates and salary_limits array. 
 #define NUM_TAXES 10
-#define MAX_FLOAT 1000000000
+#define MAX_FLOAT 1000000
 // TODO - change the definition to real MAX_FLOAT
 #define MAX_PERC 100
 
@@ -45,10 +45,10 @@ int calc_taxes(float *salary_ptr, float *taxes_paid, tax_t tax_rules);
 
 int print_salary_stats(float *salary_before_tax, float *salary_after_tax, short int location);
 
-int UK_full(float *salary_ptr, float *taxes_paid);
+int UK_full(options_t *arg_options, float *taxes_paid);
 
-int Cali_full(float *salary_ptr, float *taxes_paid, int *married);
+int Cali_full(options_t *arg_options, float *taxes_paid);
 
-int NYC_full(float *salary_ptr, float *taxes_paid, int *married);
+int NYC_full(options_t *arg_options, float *taxes_paid);
 
 #endif

@@ -9,7 +9,10 @@
 /*
 This file contains the general formulae for calculating progressive tax contributions and printing net income. 
 
-Tax calculator methods take a pointer to salary float value and a struct with tax info. Most countries have progressive taxation, so we the tax_t struct includes salary thresholds and tax rate arrays of equal length such that tax_rate[i] is the rate applied to income earned between salary_limits[i] and salary_limits[i+1]. 
+Tax calculator methods take a pointer to salary float value and a struct with tax info. Most countries have progressive taxation, so we the tax_t struct includes salary thresholds and tax rate arrays of equal length such that tax_rate[i] is the rate applied to income earned between salary_limits[i] and salary_limits[i+1]. eg. 
+tax_t UK = {.TAXRATES = {0, 20, 40, 45, MAX_PERC}, 
+            .SALARY_LIMITS = {0, 11000, 43000, 150000, MAX_FLOAT}
+in the UK, you pay 0% of your income in the 0..11,000 GBP bracket.
 
 It also contains country-specific income calculators, which internally process income tax, sales tax, national insurance payments and other country-specific contributions to add to the taxes_paid pointer. 
 
@@ -75,22 +78,23 @@ int print_salary_stats(float *salary_before_tax, float *salary_after_tax, short 
   return 0;
 }
 
-int Cali_full(float *salary_ptr, float *taxes_paid, int *married) {
+int Cali_full(options_t *arg_options, float *taxes_paid) {
   /* Helper function that calculates all tax contributions 
      including healthcare charges. 
      The value of all taxes paid will be added to the taxes_paid ptr  */ 
+  int married = arg_options->married;
   return 0;
 }
 
-int NYC_full(float *salary_ptr, float *taxes_paid, int *married) {
+int NYC_full(float *arg_options, float *taxes_paid) {
   return 0;
 }
 
-int UK_full(float *salary_ptr, float *taxes_paid) {
+int UK_full(options_t *arg_options, float *taxes_paid) {
   /* Given pointers to salary and taxes, applies respective tax rates and full costs of national insurance and assign it to respective pointers 
 */
+  float *salary_ptr = arg_options;
   int errno;
-  int ret = 0;
   tax_t taxes = UK;
   tax_t NI = UK_NI;
   // apply taxes
@@ -162,7 +166,7 @@ int main(int argc, char *argv[]) {
  
     case 3:
       // NYC no shares
-      errno = NYC_full(arg_options, taxes_paid_ptr, arg_options->married);
+      errno = NYC_full(arg_options, taxes_paid_ptr);
       break;
 
     case 5:
