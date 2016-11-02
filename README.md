@@ -1,4 +1,4 @@
-# Income calculator - still not ready, built and use at your own risk
+# Income calculator - still not ready, build and use at your own risk
 
 ### Install 
 
