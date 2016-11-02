@@ -2,6 +2,10 @@
 
 ### Install 
 
+Requirements:
+- Stdlib C
+- Cmake
+
 Download the repo and run make. _Currently only supports unix-like OS'es, sorry no Windows_
 ```bash
 git clone https://github.com/petr-tik/income_calc.git
@@ -10,6 +14,12 @@ make
 ```
 
 You should have an executable called ```income_calc```
+
+### Testing: 
+Run integration tests
+```bash
+make test
+```
 
 ### Usage: 
 
