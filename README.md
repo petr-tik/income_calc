@@ -3,8 +3,8 @@
 ### Install 
 
 Requirements:
-- Stdlib C
-- Cmake
+ - Stdlib C
+ - Cmake
 
 Download the repo and run make. _Currently only supports unix-like OS'es, sorry no Windows_
 ```bash
