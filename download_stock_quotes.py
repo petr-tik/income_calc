@@ -1,8 +1,22 @@
 #! /usr/bin/env python
+"""
+Script to download prices of different companies' stock 
+used to calculate the value of shares in an offer. 
+Ran during make by downloading a csv of Stock Prices from Yahoo.Finance 
+for most popular tech companies (list below). 
+Ran from makefile, so it prints to stdout, rather than logs. 
+
+If the OPTION_FLAGS determines the format of the csv, which is later read by a function in C. TODO: add tests to assert that all relevant information is always present. If you change the flags - need to rerun the tests.
+
+
+"""
+
 
 import requests
 from string import join
 import shutil
+
+TIMEOUT_VAL = 10
 
 STOCK_QUOTES = ["AAPL", "MSFT", "INTC", "IBM", "CSCO", "ORCL", "GOOG", 
                 "FB", "NVDA", "YHOO", "LNKD", "TWTR", "YNDX"]
@@ -14,7 +28,7 @@ OPTION_FLAGS = "nm3"
 URL = "http://download.finance.yahoo.com/d/quotes.csv\
 ?s={}&f={}".format(join(STOCK_QUOTES, "+"), OPTION_FLAGS)
 
-def download_stock_prices(url, timeout=5):
+def download_stock_prices(url, timeout=TIMEOUT_VAL):
     try:
         req = requests.get(url, timeout=timeout, stream=True)
         # HTTP errors are not raised by default, this statement does that
