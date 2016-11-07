@@ -1,3 +1,15 @@
+## 07/11
+
+Been crazy busy, but coming back to it. Craig (@cratuki) suggested using 
+a python script for initial stock quote download. 
+It's easier to write in a higher level language using libs like requests, 
+than open sockets in C. 
+For now, will leave it in python, but ideally rewrite in C later, 
+so I can learn about sockets etc. 
+
+Wrote the first version of the download script, with a hard-wired list of companies (TODO: add 
+
+
 ## 05/10
 
 Haven't had time to contribute anyythng, which is a shame. Picking up where I left off. In the future, optimise struct to an array - more efficient for L1 caching, not that it's necessary, but still minor optimisation. 
