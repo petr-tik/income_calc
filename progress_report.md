@@ -1,6 +1,6 @@
 ## 07/11
 
-Been crazy busy, but coming back to it. Craig (@cratuki) suggested using 
+Been crazy busy, but coming back to it. [Craig](https://github.com/cratuki) suggested using 
 a python script for initial stock quote download. 
 It's easier to write in a higher level language using libs like requests, 
 than open sockets in C. 
