@@ -38,7 +38,7 @@ def download_stock_prices(url, timeout=TIMEOUT_VAL):
             with open(OUTPUT_FILENAME, 'wb') as f:
                 req.raw.decode_content = True
                 shutil.copyfileobj(req.raw, f)
-        print "Stock saved under {}".format(OUTPUT_FILENAME)
+        print "Success! Data saved under {}".format(OUTPUT_FILENAME)
         return True
     except requests.HTTPError as e:
         print "Error! Checking connection failed, status code {}.".format(\
