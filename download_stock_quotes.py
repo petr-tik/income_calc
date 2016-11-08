@@ -26,9 +26,10 @@ OPTION_FLAGS = "nm3"
 # http://www.jarloo.com/yahoo_finance/
 URL = "http://download.finance.yahoo.com/d/quotes.csv\
 ?s={}&f={}".format(join(STOCK_QUOTES, "+"), OPTION_FLAGS)
-OUTPUT_FILENAME = "stocks.csv"
+OUTPUT_FILENAME = ".stocks.csv"
 
 def download_stock_prices(url, timeout=TIMEOUT_VAL):
+    print "Downloading stock data"
     try:
         req = requests.get(url, timeout=timeout, stream=True)
         # HTTP errors are not raised by default, this statement does that
@@ -37,12 +38,13 @@ def download_stock_prices(url, timeout=TIMEOUT_VAL):
             with open(OUTPUT_FILENAME, 'wb') as f:
                 req.raw.decode_content = True
                 shutil.copyfileobj(req.raw, f)
+        print "Stock saved under {}".format(OUTPUT_FILENAME)
         return True
     except requests.HTTPError as e:
-        print "Checking connection failed, status code {}.".format(\
+        print "Error! Checking connection failed, status code {}.".format(\
                                                     e.response.status_code)
     except requests.ConnectionError:
-        print "No internet connection available."
+        print "Error! No internet connection available."
     return False
 
 
