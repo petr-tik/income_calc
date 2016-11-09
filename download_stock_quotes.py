@@ -8,7 +8,7 @@ Ran from makefile, so it prints to stdout, rather than logs.
 
 If the OPTION_FLAGS determines the format of the csv, which is later read by a function in C. 
 
-xTODO: add tests to assert that all relevant information is always present. If you change the flags - need to rerun the tests.
+TODO: add tests to assert that all relevant information is always present. If you change the flags - need to rerun the tests.
 """
 
 import requests
@@ -20,8 +20,8 @@ TIMEOUT_VAL = 10
 STOCK_QUOTES = ["AAPL", "MSFT", "INTC", "IBM", "CSCO", "ORCL", "GOOG", 
                 "FB", "NVDA", "YHOO", "LNKD", "TWTR", "YNDX"]
 # TODO - include MAIL.RU stock index
-OPTION_FLAGS = "nm3"
-# n - name, m3 - 50 days' moving average
+OPTION_FLAGS = "nsm3"
+# n - name, s - symbol, m3 - 50 days' moving average
 # look up flags from here
 # http://www.jarloo.com/yahoo_finance/
 URL = "http://download.finance.yahoo.com/d/quotes.csv\

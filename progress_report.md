@@ -7,7 +7,8 @@ than open sockets in C.
 For now, will leave it in python, but ideally rewrite in C later, 
 so I can learn about sockets etc. 
 
-Wrote the first version of the download script, with a hard-wired list of companies (TODO: add 
+Wrote the first version of the download script, with a hard-wired list 
+of companies (TODO: add a configure method to add a company on install). 
 
 
 ## 05/10
