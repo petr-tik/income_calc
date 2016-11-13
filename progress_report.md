@@ -1,3 +1,18 @@
+## 12/11
+
+Researching methods of calling python script from a C program. On install time, a csv of different preset companies stock values will be stored. At run-time, the stock quote from terminal is checked against the file - if already saved, use the price and calculate taxes. If not, I want to call the same python script with the stock quote as argument. In the python script, behaviour will change if it's provided an argument. The methods to run python from C at run-time:
+    1. Embed the whole python interpreter
+    2. Call a one-liner python script
+
+Scenarios for stock market:
+    1. Stock downloaded at install time and saved in .stock.csv
+    2. No internet at install time OR the stock quote not in the list
+    2.1. Download the stock value and append it to the file
+    3. No internet now
+    3.1 Ask for estimate of stock price
+
+Now calculate the taxes from selling all shares
+
 ## 07/11
 
 Been crazy busy, but coming back to it. [Craig](https://github.com/cratuki) suggested using 
