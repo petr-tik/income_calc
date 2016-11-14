@@ -1,3 +1,7 @@
+## 14/11
+
+Thinking about communicating between python and C processes with a socket. Might be an overkill, but lighter than messing around and embedding a python interpreter into the C runtime. Also, should refactor the main. The struct is initialised with "" as stock quote and 0 for number of shares, the tax for that is the same everywhere. Rework the ideas from 17/8. 
+
 ## 12/11
 
 Researching methods of calling python script from a C program. On install time, a csv of different preset companies stock values will be stored. At run-time, the stock quote from terminal is checked against the file - if already saved, use the price and calculate taxes. If not, I want to call the same python script with the stock quote as argument. In the python script, behaviour will change if it's provided an argument. The methods to run python from C at run-time:
@@ -11,7 +15,7 @@ Scenarios for stock market:
     3. No internet now
     3.1 Ask for estimate of stock price
 
-Now calculate the taxes from selling all shares
+Now calculate the taxes from selling all shares. 
 
 ## 07/11
 
