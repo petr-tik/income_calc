@@ -58,7 +58,7 @@ Use prime numbers as return values, so when multiplied with check_options status
 1 - UK
 2 - NYC
 3 - Seattle
-5 - California
+4 - California
 */
   char dest[10];
   strcpy(dest, loc_arg); 
@@ -73,15 +73,15 @@ Use prime numbers as return values, so when multiplied with check_options status
   else if ((strcmp(dest, "ny") == 0) ||
            (strcmp(dest, "nyc") == 0))
 {
-  return 3;
+  return 2;
 } 
   else if (strcmp(dest, "seattle") == 0)
 {
-  return 5;
+  return 3;
 }
   else if ((strcmp(dest, "california") == 0) || (strcmp(dest, "cali") == 0))
 {
-  return 7;
+  return 4;
 }
   else 
 {
