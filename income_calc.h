@@ -45,10 +45,14 @@ int calc_taxes(float *salary_ptr, float *taxes_paid, tax_t tax_rules);
 
 int print_salary_stats(float *salary_before_tax, float *salary_after_tax, short int location);
 
-int UK_full(options_t *arg_options, float *taxes_paid);
+int UK_full(options_t *arg_options, float *salary_taxes_paid);
 
-int Cali_full(options_t *arg_options, float *taxes_paid);
+int Cali_full(options_t *arg_options, float *salary_taxes_paid);
 
-int NYC_full(options_t *arg_options, float *taxes_paid);
+int NYC_full(options_t *arg_options, float *salary_taxes_paid);
+
+int pay_taxes_from_salary(options_t *arg_options, float *salary_taxes_paid_ptr);
+
+int pay_taxes_from_stock(options_t *arg_options, float *netto_stock_profit_ptr);
 
 #endif
