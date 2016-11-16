@@ -21,7 +21,46 @@ The main func uses the parser func (which fills in the options struct) to decide
     country
 */
 
-int calc_taxes(float *salary_ptr, float *taxes_paid, tax_t tax_rules) {
+/* 
+   ------------------------------
+   Helper functions for debugging
+   ------------------------------
+*/
+
+int
+print_salary_stats(float *salary_before_tax, 
+                   float *salary_after_tax, short int location) {
+  /* Given a pointer to salary after tax value (annual), 
+     print out weekly and monthly allowance */
+  char sign[3] = "";
+  switch(location)
+{
+    case 1:
+      strncpy(sign, "£", 3);
+      break;
+
+    case 2 ... 4:
+      strncpy(sign, "$", 3);
+      break;
+
+    default:
+      return 1;
+}      
+  printf("Salary before taxes: %s%.2f\n", sign, *salary_before_tax); 
+  printf("Salary after tax: %s%.2f\n", sign, *salary_after_tax); 
+  printf("Your monthly allowance: %s%.2f\n", sign, *salary_after_tax/12);
+  printf("Your weekly allowance: %s%.2f\n", sign, *salary_after_tax/52);
+  return 0;
+}
+
+/* 
+   ------------------------------
+   Reusable functions to calculate taxes from stock and salary
+   ------------------------------
+*/
+
+int
+calc_taxes(float *salary_ptr, float *taxes_paid, tax_t tax_rules) {
   /* Universal helper function to calculate amount of tax paid, 
      given the rules and the salary. 
      Can be applied for any contribution: NI in the UK, taxes elsewhere. 
@@ -86,11 +125,13 @@ int Cali_full(options_t *arg_options, float *taxes_paid) {
   return 0;
 }
 
-int NYC_full(float *arg_options, float *taxes_paid) {
+int
+NYC_full(float *arg_options, float *salary_taxes_paid) {
   return 0;
 }
 
-int UK_full(options_t *arg_options, float *taxes_paid) {
+int
+UK_full(options_t *arg_options, float *salary_taxes_paid) {
   /* Given pointers to salary and taxes, applies respective tax rates and full costs of national insurance and assign it to respective pointers 
 */
   float *salary_ptr = arg_options;
@@ -98,11 +139,11 @@ int UK_full(options_t *arg_options, float *taxes_paid) {
   tax_t taxes = UK;
   tax_t NI = UK_NI;
   // apply taxes
-  errno = calc_taxes(salary_ptr, taxes_paid, taxes);
+  errno = calc_taxes(salary_ptr, salary_taxes_paid, taxes);
   if (errno == 0) 
 {
     // apply national insurance
-    errno = calc_taxes(salary_ptr, taxes_paid, NI);
+    errno = calc_taxes(salary_ptr, salary_taxes_paid, NI);
     if (errno == 0) {
       return errno;
 } 
@@ -111,18 +152,22 @@ int UK_full(options_t *arg_options, float *taxes_paid) {
   return errno;
 }
 
-int main(int argc, char *argv[]) {
+
+int
+main(int argc, char *argv[]) {
   /* the main initialises the necessary pointers, 
      all functions take at least pointers to salary and taxes_paid. 
      US tax funcs take pointer to married parameter */
   float salary_after_tax;
   float *salary_after_tax_ptr = &salary_after_tax; 
-  float taxes_paid = 0;
-  float *taxes_paid_ptr = &taxes_paid;
-  
+  float salary_taxes_paid = 0;
+  float *salary_taxes_paid_ptr = &salary_taxes_paid;
+  float netto_stock_profit = 0;
+  float *netto_stock_profit_ptr = &netto_stock_profit;
+
   // parser module - create and init an options struct 
   options_t * arg_options = options_init();
-  if (salary_after_tax_ptr == NULL || taxes_paid_ptr == NULL 
+  if (salary_after_tax_ptr == NULL || salary_taxes_paid_ptr == NULL 
       || arg_options == NULL) 
 {
   exit(1);
@@ -146,62 +191,21 @@ int main(int argc, char *argv[]) {
   printf("ERROR! Not enough arguments\n");
   exit(1);
 }
-  int scenario = (arg_options->location) * options_validity;
   // DEBUGGING ONLY
-  printf("scenario: %d\n", scenario);
   printf("Parsed: \n\tsalary amount: %f\n\tlocation: %d\n\tmarried: %d\n", 
-             arg_options->amount, arg_options->location, arg_options->married);
-
-  // logic again
-  switch(scenario){    
-    case 1:
-      // first field in struct is pointer to struct
-      // the first element of the struct is ptr to salary amount
-      errno = UK_full(arg_options, taxes_paid_ptr); 
-      break;
-
-    case 2:
-      // UK and shares
-      break;
- 
-    case 3:
-      // NYC no shares
-      errno = NYC_full(arg_options, taxes_paid_ptr);
-      break;
-
-    case 5:
-      // Seattle_no_shares
-      break;
-
-    case 6:
-      // NYC and shares
-      break;
-      
-    case 7:
-      // California no shares
-      break;
-
-    case 10:
-      // Seattle and shares
-      break;
-
-    case 14:
-      // Cali and shares
-      break;  
-
-    default:
-      // nothing
-      break;
-}
-
+             arg_options->amount, arg_options->location, 
+             arg_options->married);
+  errno = pay_taxes_from_salary(arg_options, salary_taxes_paid_ptr);
   if (errno == 0) 
 {
-    *salary_after_tax_ptr = arg_options->amount - *taxes_paid_ptr;
-    print_salary_stats(arg_options, salary_after_tax_ptr, arg_options->location);
+    *salary_after_tax_ptr = arg_options->amount - *salary_taxes_paid_ptr;
+    errno = pay_taxes_from_stock(arg_options, netto_stock_profit_ptr);
+    // print_salary_stats(arg_options, salary_after_tax_ptr, arg_options->location);
 } else 
 {
     return 1;
 } // end else
+
 
   free(arg_options);
   return 0;
