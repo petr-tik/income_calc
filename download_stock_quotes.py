@@ -44,13 +44,13 @@ OUTPUT_FILENAME = ".stocks.csv"
 
 def make_url_for_stocks(new_stock_quote=None):
     """ Fills a yahoo finance URL with option flags and stock quotes """
-    STOCK_QUOTES_STR = join(STOCK_QUOTES, "+")
-    if new_stock_quote is not None and new_stock_quote not in STOCK_QUOTES:
-        STOCK_QUOTES_STR = new_stock_quote
-    OPTION_FLAGS = "nsm3"
-    URL = "http://download.finance.yahoo.com/d/quotes.csv\
-    ?s={}&f={}".format(STOCK_QUOTES_STR, OPTION_FLAGS)
-    return URL
+    stock_quotes_str = join(stock_quotes, "+")
+    if new_stock_quote is not None and new_stock_quote not in stock_quotes:
+        stock_quotes_str = new_stock_quote
+    option_flags = "nsm3"
+    url = "http://download.finance.yahoo.com/d/quotes.csv\
+    ?s={}&f={}".format(stock_quotes_str, option_flags)
+    return url
 
 
 def download_stock_prices(url, open_method, timeout=TIMEOUT_VAL):
@@ -84,10 +84,10 @@ def download_stock_prices(url, open_method, timeout=TIMEOUT_VAL):
 if __name__ == "__main__":
     if len(sys.argv) == 1:
         open_method = "w"
-        URL = make_url_for_stocks()
+        url = make_url_for_stocks()
     elif len(sys.argv) == 2 and os.path.exists(OUTPUT_FILENAME):
         open_method = "a"
-        URL = make_url_for_stocks(sys.argv[1])
+        url = make_url_for_stocks(sys.argv[1])
     else:
         exit(1)
-    download_stock_prices(URL, open_method)
+    download_stock_prices(url, open_method)
