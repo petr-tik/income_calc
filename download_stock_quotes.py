@@ -14,28 +14,45 @@ TODO: add tests to assert that all relevant information is always present. If yo
 import requests
 from string import join
 import shutil
+import sys
+import os.path
 
 TIMEOUT_VAL = 10
 
 STOCK_QUOTES = ["AAPL", "MSFT", "INTC", "IBM", "CSCO", "ORCL", "GOOG", 
                 "FB", "NVDA", "YHOO", "LNKD", "TWTR", "YNDX"]
 # TODO - include MAIL.RU stock index
-OPTION_FLAGS = "nsm3"
+
 # n - name, s - symbol, m3 - 50 days' moving average
 # look up flags from here
 # http://www.jarloo.com/yahoo_finance/
-URL = "http://download.finance.yahoo.com/d/quotes.csv\
-?s={}&f={}".format(join(STOCK_QUOTES, "+"), OPTION_FLAGS)
 OUTPUT_FILENAME = ".stocks.csv"
 
-def download_stock_prices(url, timeout=TIMEOUT_VAL):
+def make_url_for_stocks(new_stock_quote=None):
+    """ Fills a yahoo finance URL with option flags and stock quotes """
+    STOCK_QUOTES_STR = join(STOCK_QUOTES, "+")
+    if new_stock_quote != None and new_stock_quote not in STOCK_QUOTES:
+        STOCK_QUOTES_STR = new_stock_quote
+    OPTION_FLAGS = "nsm3"
+    URL = "http://download.finance.yahoo.com/d/quotes.csv\
+?s={}&f={}".format(STOCK_QUOTES_STR, OPTION_FLAGS)
+    return URL
+
+def download_stock_prices(url, open_method, timeout=TIMEOUT_VAL):
+    """ Takes a URL with filled-in option flags and stock_quotes 
+    and saves it to a csv file. 
+    Open_methods:
+        write - if no file exists
+        append - if file exists and stock_quote is new
+    """
     print "Downloading stock data"
+    fopen_method = open_method + "b"
     try:
         req = requests.get(url, timeout=timeout, stream=True)
         # HTTP errors are not raised by default, this statement does that
         req.raise_for_status()
         if req.status_code == 200:
-            with open(OUTPUT_FILENAME, 'wb') as f:
+            with open(OUTPUT_FILENAME, fopen_method) as f:
                 req.raw.decode_content = True
                 shutil.copyfileobj(req.raw, f)
         print "Success! Data saved under {}".format(OUTPUT_FILENAME)
@@ -49,6 +66,12 @@ def download_stock_prices(url, timeout=TIMEOUT_VAL):
 
 
 if __name__ == "__main__":
-    download_stock_prices(URL)
-        
-    
+    if len(sys.argv) == 1:
+        open_method = "w"
+        URL = make_url_for_stocks()        
+    elif len(sys.argv) == 2 and os.path.exists(OUTPUT_FILENAME): 
+        open_method = "a"
+        URL = make_url_for_stocks(sys.argv[1])
+    else:
+        exit(1)
+    download_stock_prices(URL, open_method)
