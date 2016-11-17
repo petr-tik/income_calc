@@ -9,6 +9,19 @@ Ran from makefile, so it prints to stdout, rather than logs.
 If the OPTION_FLAGS determines the format of the csv, which is later read by a function in C. 
 
 TODO: add tests to assert that all relevant information is always present. If you change the flags - need to rerun the tests.
+
+Running:
+
+the script is run without args during installation and at any other time, 
+when you a new file needs to be created
+
+python download_stock_quotes.py
+
+When a stock_quote is missing from the file, run the script 
+with sys.argv[2] = stock_quote
+
+python download_stock_quotes.py $STOCK_QUOTE
+
 """
 
 import requests
@@ -35,7 +48,7 @@ def make_url_for_stocks(new_stock_quote=None):
         STOCK_QUOTES_STR = new_stock_quote
     OPTION_FLAGS = "nsm3"
     URL = "http://download.finance.yahoo.com/d/quotes.csv\
-?s={}&f={}".format(STOCK_QUOTES_STR, OPTION_FLAGS)
+    ?s={}&f={}".format(STOCK_QUOTES_STR, OPTION_FLAGS)
     return URL
 
 def download_stock_prices(url, open_method, timeout=TIMEOUT_VAL):
@@ -43,7 +56,8 @@ def download_stock_prices(url, open_method, timeout=TIMEOUT_VAL):
     and saves it to a csv file. 
     Open_methods:
         write - if no file exists
-        append - if file exists and stock_quote is new
+        append - if file exists and stock_quote is new. 
+                 adds a row with the info of that stock quote
     """
     print "Downloading stock data"
     fopen_method = open_method + "b"
