@@ -44,7 +44,7 @@ OUTPUT_FILENAME = ".stocks.csv"
 
 def make_url_for_stocks(new_stock_quote=None):
     """ Fills a yahoo finance URL with option flags and stock quotes """
-    stock_quotes_str = join(stock_quotes, "+")
+    stock_quotes_str = join(STOCK_QUOTES, "+")
     if new_stock_quote is not None and new_stock_quote not in stock_quotes:
         stock_quotes_str = new_stock_quote
     option_flags = "nsm3"
