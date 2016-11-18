@@ -1,3 +1,14 @@
+## 17/11
+
+Expanded the download_stock script - now has 2 use cases - 
+1. download all stock data for default stocks
+2. Append a new stock info to the current file
+
+Refactored procedural code into another function, 
+which creates a URL to query yahoo finance.
+
+Added docstrings and general infromation about code
+
 ## 14/11
 
 Thinking about communicating between python and C processes with a socket. Might be an overkill, but lighter than messing around and embedding a python interpreter into the C runtime. Also, should refactor the main. The struct is initialised with "" as stock quote and 0 for number of shares, the tax for that is the same everywhere. Rework the ideas from 17/8. 
