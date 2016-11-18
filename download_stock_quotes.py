@@ -53,7 +53,7 @@ def make_url_for_stocks(new_stock_quote=None):
     return url
 
 
-def download_stock_prices(url, open_method, timeout=TIMEOUT_VAL):
+def download_stock_prices(url, open_method, output_fname=OUTPUT_FILENAME, timeout=TIMEOUT_VAL):
     """ Takes a URL with filled-in option flags and stock_quotes
     and saves it to a csv file.
     Open_methods:
@@ -68,10 +68,10 @@ def download_stock_prices(url, open_method, timeout=TIMEOUT_VAL):
         # HTTP errors are not raised by default, this statement does that
         req.raise_for_status()
         if req.status_code == 200:
-            with open(OUTPUT_FILENAME, fopen_method) as f:
+            with open(output_fname, fopen_method) as f:
                 req.raw.decode_content = True
                 shutil.copyfileobj(req.raw, f)
-        print "Success! Data saved under {}".format(OUTPUT_FILENAME)
+        print "Success! Data saved under {}".format(output_fname)
         return True
     except requests.HTTPError as e:
         print "Error! Checking connection failed, status code {}.".format(
