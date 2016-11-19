@@ -48,7 +48,7 @@ def make_url_for_stocks(new_stock_quote=None):
     if new_stock_quote is not None and new_stock_quote not in stock_quotes:
         stock_quotes_str = new_stock_quote
     option_flags = "nsm3"
-    url = "http://download.finance.yahoo.com/d/quotes.csv\
+    url = "https://download.finance.yahoo.com/d/quotes.csv\
     ?s={}&f={}".format(stock_quotes_str, option_flags)
     return url
 
@@ -71,14 +71,13 @@ def download_stock_prices(url, open_method, output_fname=OUTPUT_FILENAME, timeou
             with open(output_fname, fopen_method) as f:
                 req.raw.decode_content = True
                 shutil.copyfileobj(req.raw, f)
-        print "Success! Data saved under {}".format(output_fname)
-        return True
+        return "Success! Data saved under {}".format(output_fname)
     except requests.HTTPError as e:
-        print "Error! Checking connection failed, status code {}.".format(
+        return "Error! Checking connection failed, status code {}.".format(
             e.response.status_code)
     except requests.ConnectionError:
-        print "Error! No internet connection available."
-    return False
+        return "Error! No internet connection available."
+
 
 
 if __name__ == "__main__":
@@ -90,4 +89,5 @@ if __name__ == "__main__":
         url = make_url_for_stocks(sys.argv[1])
     else:
         exit(1)
-    download_stock_prices(url, open_method)
+    response = download_stock_prices(url, open_method)
+    print response
