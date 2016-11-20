@@ -32,28 +32,44 @@ import os.path
 
 TIMEOUT_VAL = 10
 
-STOCK_QUOTES = ["AAPL", "MSFT", "INTC", "IBM", "CSCO", "ORCL", "GOOG",
-                "FB", "NVDA", "YHOO", "LNKD", "TWTR", "YNDX"]
+DEFAULT_STOCK_QUOTES = ["AAPL", "MSFT", "INTC", "IBM", "CSCO", "ORCL",
+                        "GOOG", "FB", "NVDA", "YHOO", "LNKD", "TWTR", "YNDX"]
 # TODO - include MAIL.RU stock index
 
-# n - name, s - symbol, m3 - 50 days' moving average
-# look up flags from here
-# http://www.jarloo.com/yahoo_finance/
 OUTPUT_FILENAME = ".stocks.csv"
 
 
 def make_url_for_stocks(new_stock_quote=None):
-    """ Fills a yahoo finance URL with option flags and stock quotes """
-    stock_quotes_str = join(STOCK_QUOTES, "+")
-    if new_stock_quote is not None and new_stock_quote not in stock_quotes:
-        stock_quotes_str = new_stock_quote
+    """ Fills a yahoo finance URL with option flags and stock quotes.
+    Takes no args, 1 string arg or a list of strings
+    Default case is used at compile/install time, makes a url of default stocks
+    1 string arg - when one stock is missing and needs to be
+
+    """
+    if new_stock_quote is None:
+        stock_quotes_str = join(DEFAULT_STOCK_QUOTES, "+")
+    elif isinstance(new_stock_quote, list):
+        # new_stock_quote = [x.upper() for x in new_stock_quote
+        #                   if x.upper() not in DEFAULT_STOCK_QUOTES]
+        new_stock_quote = map(upper,
+                              filter(lambda x: x not in DEFAULT_STOCK_QUOTES))
+
+        stock_quotes_str = join(new_stock_quote, "+")
+
     option_flags = "nsm3"
+    # n - name, s - symbol, m3 - 50 days' moving average
+    # look up flags from here
+    # http://www.jarloo.com/yahoo_finance/
     url = "https://download.finance.yahoo.com/d/quotes.csv\
-    ?s={}&f={}".format(stock_quotes_str, option_flags)
+?s={}&f={}".format(stock_quotes_str, option_flags)
     return url
 
 
-def download_stock_prices(url, open_method, output_fname=OUTPUT_FILENAME, timeout=TIMEOUT_VAL):
+def download_stock_prices(
+        url,
+        open_method,
+        output_fname=OUTPUT_FILENAME,
+        timeout=TIMEOUT_VAL):
     """ Takes a URL with filled-in option flags and stock_quotes
     and saves it to a csv file.
     Open_methods:
@@ -61,7 +77,7 @@ def download_stock_prices(url, open_method, output_fname=OUTPUT_FILENAME, timeou
         append - if file exists and stock_quote is new.
                  adds a row with the info of that stock quote
     """
-    print "Downloading stock data"
+    print "Downloading stock data from {}".format(url)
     fopen_method = open_method + "b"
     try:
         req = requests.get(url, timeout=timeout, stream=True)
@@ -77,7 +93,6 @@ def download_stock_prices(url, open_method, output_fname=OUTPUT_FILENAME, timeou
             e.response.status_code)
     except requests.ConnectionError:
         return "Error! No internet connection available."
-
 
 
 if __name__ == "__main__":
