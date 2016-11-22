@@ -1,3 +1,10 @@
+## 22/11
+
+It compiles again! a git hook would be great to check if it can compile in the future. Changed the function definitions and signatures, changed bracket indentation in income_calc.c
+
+Added more comments at the beginning. Added a commented-out tax_shares method (TODO), now need to implement file reading and checking for most recent salary quote/stock price and calculate the post-tax profit from stock selling.
+
+
 ## 17/11
 
 Expanded the download_stock script - now has 2 use cases - 
