@@ -33,7 +33,7 @@ options_t * options_init() {
   options->amount = -1;
   options->married = 0; // won't change unless -m option
   options->location = -1;
-  options->stock_amount = -1;
+  options->stock_amount = 0;
   memcpy(options->stock_quote, "", sizeof(""));
   return options;
 }

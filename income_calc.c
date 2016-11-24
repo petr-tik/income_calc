@@ -34,7 +34,7 @@ print_salary_stats(float *salary_before_tax,
      print out weekly and monthly allowance */
   char sign[3] = "";
   switch(location)
-{
+    {
     case 1:
       strncpy(sign, "£", 3);
       break;
@@ -45,7 +45,7 @@ print_salary_stats(float *salary_before_tax,
 
     default:
       return 1;
-}      
+    }      
   printf("Salary before taxes: %s%.2f\n", sign, *salary_before_tax); 
   printf("Salary after tax: %s%.2f\n", sign, *salary_after_tax); 
   printf("Your monthly allowance: %s%.2f\n", sign, *salary_after_tax/12);
@@ -147,13 +147,13 @@ int
 pay_taxes_from_stock(options_t *arg_options,
                      float *netto_stock_profit_ptr) {
   /* Given pointers to: 
-                      struct with cli args  
-                      float value of after tax profit from stocks
-    Calculate how much money you make, if you liquidate your stock at 
-    the current (or stored) price and pay taxes on it in your country 
+            struct with cli args  
+            float value of after tax profit from stocks
+     Calculate how much money you make, if you liquidate your stock at 
+     the current (or stored) price and pay taxes on it in your country
   */
+  if (arg_options->stock_amount == 0) return 0;
   
-
   return 0;
 }
 
@@ -201,7 +201,7 @@ UK_full(options_t *arg_options, float *salary_taxes_paid_ptr) {
 }
 
 
-int
+int 
 main(int argc, char *argv[]) {
   /* the main initialises the necessary pointers, 
      all functions take at least pointers to salary and taxes_paid. 
