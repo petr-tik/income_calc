@@ -152,7 +152,9 @@ pay_taxes_from_stock(options_t *arg_options,
      Calculate how much money you make, if you liquidate your stock at 
      the current (or stored) price and pay taxes on it in your country
   */
-  if (arg_options->stock_amount == 0) return 0;
+  if (arg_options->stock_amount == 0) {
+          *netto_stock_profit_ptr = 0;
+          return 0;}
   
   return 0;
 }
