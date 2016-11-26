@@ -183,17 +183,17 @@ int
 UK_full(options_t *arg_options, float *salary_taxes_paid_ptr) {
   /* Given pointers to salary and taxes, applies respective tax rates and full costs of national insurance and assign it to respective pointers 
    */
-  float *salary_ptr;
-  *salary_ptr = arg_options->amount;
+  float salary;
+  salary = arg_options->amount;
   int errno;
   tax_t taxes = UK;
   tax_t NI = UK_NI;
   // apply taxes
-  errno = calc_taxes(salary_ptr, salary_taxes_paid_ptr, taxes);
+  errno = calc_taxes(&salary, salary_taxes_paid_ptr, taxes);
   if (errno == 0) 
     {
       // apply national insurance
-      errno = calc_taxes(salary_ptr, salary_taxes_paid_ptr, NI);
+      errno = calc_taxes(&salary, salary_taxes_paid_ptr, NI);
       if (errno == 0) {
         return errno;
       } 
