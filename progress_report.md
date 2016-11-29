@@ -1,3 +1,13 @@
+## 25/11
+
+Changed the init value of options\_t struct->stock_amount to 0, so I can run checks on the necessity of calculating. 
+
+After refactoring, I will move all switch cases from main(), by including them in helper functions. In the end, errno will catch and check if 2 funcs are performing correctly:
+
+pay\_taxes\_from\_salary()
+pay\_taxes\_from\_stock()
+
+
 ## 22/11
 
 It compiles again! a git hook would be great to check if it can compile in the future. Changed the function definitions and signatures, changed bracket indentation in income_calc.c
