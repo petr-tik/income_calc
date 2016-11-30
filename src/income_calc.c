@@ -3,8 +3,8 @@
 #include <stdio.h>
 #include <float.h>
 #include <string.h>
-#include "parser.h"
-#include "income_calc.h"
+#include "../include/parser.h"
+#include "../include/income_calc.h"
 
 /*
   This file contains the general formulae for calculating progressive tax contributions and printing net income. 

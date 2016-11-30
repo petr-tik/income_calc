@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "parser.h"
+#include "../include/parser.h"
 
 /* Module responsible for parsing the command line arguments.
    Receives argc and argv and iterates over them to fill in a previously initialised 

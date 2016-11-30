@@ -4,7 +4,7 @@ CC=gcc
 CFLAGS=-ggdb3 -Wall
 LIBS=-lm
 STOCK_DLOAD_SCRIPT=download_stock_quotes.py
-SRCS=parser.c income_calc.c #uses implicit rules to make object files
+SRCS=$(wildcard src/*.c) #uses implicit rules to make object files
 OBJS=$(SRCS:.c=.o)
 # define the C object files 
 #
