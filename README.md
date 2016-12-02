@@ -4,7 +4,7 @@
 
 Requirements:
  - Stdlib C
- - Cmake
+ - GNU make
 
 Download the repo and run make. _Currently only supports unix-like OS'es, sorry no Windows_
 ```bash
@@ -16,6 +16,11 @@ make
 You should have an executable called ```income_calc```
 
 ### Testing: 
+Test the python download script
+```bash
+make test_python
+```
+
 Run integration tests
 ```bash
 make test

@@ -25,6 +25,9 @@ income_calc: $(OBJS)
 	python $(STOCK_DLOAD_SCRIPT)
 	$(CC) $(CFLAGS) $(OBJS) -o $@ $(LIBS)
 
+test_python: $(STOCK_DLOAD_SCRIPT)
+	python tests/test_download_stock.py
+
 test: income_calc
 	./test_calc.sh
 
