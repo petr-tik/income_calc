@@ -39,6 +39,20 @@ DEFAULT_STOCK_QUOTES = ["AAPL", "MSFT", "INTC", "IBM", "CSCO", "ORCL",
 OUTPUT_FILENAME = ".stocks.csv"
 
 
+def generate_stock_quote_str(new_stock_quote):
+    """ Given new_stock_quotes (None, one string or list of string)
+    returns a string of stock_quotes joined by + (Yahoo.Finance separator
+    """
+    if new_stock_quote is None:
+        stock_quotes_str = join(DEFAULT_STOCK_QUOTES, "+")
+    elif isinstance(new_stock_quote, list):
+        new_stock_quote = map(upper,
+                              filter(lambda x: x not in DEFAULT_STOCK_QUOTES))
+
+        stock_quotes_str = join(new_stock_quote, "+")
+    return stock_quotes_str
+
+
 def make_url_for_stocks(new_stock_quote=None):
     """ Fills a yahoo finance URL with option flags and stock quotes.
     Takes no args, 1 string arg or a list of strings
@@ -46,16 +60,7 @@ def make_url_for_stocks(new_stock_quote=None):
     1 string arg - when one stock is missing and needs to be
 
     """
-    if new_stock_quote is None:
-        stock_quotes_str = join(DEFAULT_STOCK_QUOTES, "+")
-    elif isinstance(new_stock_quote, list):
-        # new_stock_quote = [x.upper() for x in new_stock_quote
-        #                   if x.upper() not in DEFAULT_STOCK_QUOTES]
-        new_stock_quote = map(upper,
-                              filter(lambda x: x not in DEFAULT_STOCK_QUOTES))
-
-        stock_quotes_str = join(new_stock_quote, "+")
-
+    stock_quotes_str = generate_stock_quote_str(new_stock_quote)
     option_flags = "nsm3"
     # n - name, s - symbol, m3 - 50 days' moving average
     # look up flags from here
