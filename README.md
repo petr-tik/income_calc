@@ -44,3 +44,37 @@ make test
 
          <amount_of_shares> <stock_quote>
 
+
+### Contributing:
+
+Thanks a lot for checking this small project out. 
+Contributions welcome using GitHub-workflow. 
+
+#### Bugs, typos, features, questions
+
+Open issues
+
+#### Code submission, pull requests
+
+Fork my repo, git clone your repo locally, checkout a new branch, commit changes, push up to your repo and open a PR.
+
+Requirements:
+ - Stdlib C
+ - GNU make
+ - clang-format
+
+
+Fork on GitHub
+```bash
+git clone https://github.com/<your_username>/income_calc.git
+cd income_calc
+git checkout -b new_feature_branch
+```
+hack, hack, hack
+
+```bash
+git commit -am "meaningful commit message"
+git push origin new_feature_branch
+```
+
+Go to the branch on your GitHub fork and send a PR 

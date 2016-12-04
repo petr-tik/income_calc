@@ -1,3 +1,16 @@
+## 04/12
+
+Restructured the folder, merged Bilyan's PR, fixed the issue he opened (#6 on GitHub), by installing and setting up clang-format with the commited .clang-format file.
+
+Learnt how to make a symlink to enable my c-mode on-save hook to run clang-format-buffer
+
+sudo ln -s /usr/bin/clang-format-* /usr/local/bin/clang-format
+
+because the clang-format.el looks for the executable under the name clang-format
+
+need to upload my dot-files separately.
+
+
 ## 25/11
 
 Changed the init value of options\_t struct->stock_amount to 0, so I can run checks on the necessity of calculating. 
