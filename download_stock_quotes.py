@@ -40,7 +40,7 @@ OUTPUT_FILENAME = ".stocks.csv"
 
 
 def generate_stock_quote_str(new_stock_quote):
-    """ Given new_stock_quotes (None, one string or list of string)
+    """ Given new_stock_quotes (None, one string or list of strings)
     returns a string of stock_quotes joined by + (Yahoo.Finance separator
     """
     if new_stock_quote is None:
@@ -105,8 +105,9 @@ if __name__ == "__main__":
         open_method = "w"
         url = make_url_for_stocks()
     elif len(sys.argv) == 2 and os.path.exists(OUTPUT_FILENAME):
+        new_stock_quote = sys.argv[1]
         open_method = "a"
-        url = make_url_for_stocks(sys.argv[1])
+        url = make_url_for_stocks(new_stock_quote)
     else:
         exit(1)
     response = download_stock_prices(url, open_method)

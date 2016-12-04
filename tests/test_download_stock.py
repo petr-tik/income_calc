@@ -4,7 +4,8 @@ import unittest
 from os import remove
 import os.path
 from string import join
-from download_stock_quotes.py import make_url_for_stocks, download_stock_prices, DEFAULT_STOCK_QUOTES
+from download_stock_quotes import make_url_for_stocks, download_stock_prices,\
+    DEFAULT_STOCK_QUOTES
 
 
 class TestDownloadScript(unittest.TestCase):
