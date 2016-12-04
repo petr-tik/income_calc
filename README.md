@@ -1,6 +1,6 @@
 # Income calculator - still not ready, build and use at your own risk
 
-### Install 
+## Install 
 
 Requirements:
  - Stdlib C
@@ -15,7 +15,9 @@ make
 
 You should have an executable called ```income_calc```
 
-### Testing: 
+## Testing: 
+https://www.incometaxcalculator.org.uk was used to check my salary calculator against.
+
 Test the python download script
 ```bash
 make test_python
@@ -26,7 +28,7 @@ Run integration tests
 make test
 ```
 
-### Usage: 
+## Usage: 
 
 ```bash
 ./income_calc -a <amount> -l <location> [-m married]
@@ -45,16 +47,16 @@ make test
          <amount_of_shares> <stock_quote>
 
 
-### Contributing:
+## Contributing:
 
 Thanks a lot for checking this small project out. 
 Contributions welcome using GitHub-workflow. 
 
-#### Bugs, typos, features, questions
+### Bugs, typos, features, questions
 
 Open issues
 
-#### Code submission, pull requests
+### Code submission, pull requests
 
 Fork my repo, git clone your repo locally, checkout a new branch, commit changes, push up to your repo and open a PR.
 
@@ -77,4 +79,4 @@ git commit -am "meaningful commit message"
 git push origin new_feature_branch
 ```
 
-Go to the branch on your GitHub fork and send a PR 
+Go to the branch on your GitHub fork and send a PR
