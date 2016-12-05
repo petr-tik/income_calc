@@ -70,6 +70,7 @@ cd income_calc
 git checkout -b new_feature_branch
 ```
 hack, hack, hack
+clang-format the code according to [.clang-format](.clang-format)
 
 ```bash
 git commit -am "meaningful commit message"
