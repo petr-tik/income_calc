@@ -16,6 +16,7 @@ make
 You should have an executable called ```income_calc```
 
 ## Testing: 
+
 https://www.incometaxcalculator.org.uk was used to check my salary calculator against.
 
 Test the python download script
@@ -58,13 +59,12 @@ Open issues
 
 ### Code submission, pull requests
 
-Fork my repo, git clone your repo locally, checkout a new branch, commit changes, push up to your repo and open a PR.
-
-Requirements:
+#### Requirements
  - Stdlib C
  - GNU make
  - clang-format
 
+#### Step-by-step guide
 
 Fork on GitHub
 ```bash
@@ -74,9 +74,11 @@ git checkout -b new_feature_branch
 ```
 hack, hack, hack
 
+clang-format the code according to [.clang-format](.clang-format)
+
 ```bash
 git commit -am "meaningful commit message"
 git push origin new_feature_branch
 ```
 
-Go to the branch on your GitHub fork and send a PR
+Go to the branch on your GitHub fork and send a PR to the master branch 
