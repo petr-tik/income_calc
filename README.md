@@ -1,12 +1,16 @@
-# Income calculator - still not ready, build and use at your own risk
+# Income calculator
+
+Experimental version with basic functionality for UK salaries without shares
 
 ## Install 
+
+_Currently only supports unix-like OS'es, sorry no Windows_
 
 Requirements:
  - Stdlib C
  - GNU make
 
-Download the repo and run make. _Currently only supports unix-like OS'es, sorry no Windows_
+Download the repo and run make. 
 ```bash
 git clone https://github.com/petr-tik/income_calc.git
 cd income_calc

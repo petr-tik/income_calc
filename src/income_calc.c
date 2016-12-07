@@ -88,8 +88,9 @@ int calc_taxes(float *salary_ptr, float *taxes_paid, tax_t tax_rules)
 	for (idx; idx > -1; idx--) {
 		taxes_paid_at_bracket = tax_rules.TAXRATES[idx] / 100 *
 					(salary - tax_rules.SALARY_LIMITS[idx]);
-		printf("At bracket %f, I pay %.2f\n", tax_rules.TAXRATES[idx],
-		       taxes_paid_at_bracket); // debugging
+		/* printf("At bracket %f, I pay %.2f\n",
+		 * tax_rules.TAXRATES[idx], */
+		/*        taxes_paid_at_bracket); // debugging */
 		*taxes_paid += taxes_paid_at_bracket;
 		salary = tax_rules.SALARY_LIMITS[idx];
 	}
@@ -222,9 +223,10 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 	// DEBUGGING ONLY
-	printf("Parsed: \n\tsalary amount: %f\n\tlocation: %d\n\tmarried: %d\n",
-	       arg_options->amount, arg_options->location,
-	       arg_options->married);
+	/* printf("Parsed: \n\tsalary amount: %f\n\tlocation: %d\n\tmarried:
+	 * %d\n", */
+	/*        arg_options->amount, arg_options->location, */
+	/*        arg_options->married); */
 	err_code = pay_taxes_from_salary(arg_options, salary_taxes_paid_ptr);
 	if (err_code == 0) {
 		*salary_after_tax_ptr =
@@ -236,7 +238,7 @@ int main(int argc, char *argv[])
 	} else {
 		return 1;
 	} // end else
-
+	printf("%.2f\n", *salary_after_tax_ptr);
 	free(arg_options);
 	return 0;
 }
