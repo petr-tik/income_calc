@@ -85,7 +85,7 @@ int calc_taxes(float *salary_ptr, float *taxes_paid, tax_t tax_rules)
 
 	// starting from the top bracket, increment the taxes_paid ptr by
 	// the amount of tax at this tax bracket
-	for (idx; idx > -1; idx--) {
+	for (;idx > -1; idx--) {
 		taxes_paid_at_bracket = tax_rules.TAXRATES[idx] / 100 *
 					(salary - tax_rules.SALARY_LIMITS[idx]);
 		/* printf("At bracket %f, I pay %.2f\n",
