@@ -5,6 +5,7 @@
 #include <string.h>
 #include "../include/parser.h"
 #include "../include/income_calc.h"
+#include "../include/debug.h"
 
 /*
   This file contains the general formulae for calculating progressive tax
@@ -31,37 +32,6 @@
 
 /*
    ------------------------------
-   Helper functions for debugging
-   ------------------------------
-*/
-
-int print_salary_stats(float *salary_before_tax, float *salary_after_tax,
-		       short int location)
-{
-	/* Given a pointer to salary after tax value (annual),
-	   print out weekly and monthly allowance */
-	char sign[3] = "";
-	switch (location) {
-	case 1:
-		strncpy(sign, "£", 3);
-		break;
-
-	case 2 ... 4:
-		strncpy(sign, "$", 3);
-		break;
-
-	default:
-		return 1;
-	}
-	printf("Salary before taxes: %s%.2f\n", sign, *salary_before_tax);
-	printf("Salary after tax: %s%.2f\n", sign, *salary_after_tax);
-	printf("Your monthly allowance: %s%.2f\n", sign,
-	       *salary_after_tax / 12);
-	printf("Your weekly allowance: %s%.2f\n", sign, *salary_after_tax / 52);
-	return 0;
-}
-
-/*
    ------------------------------
    Reusable functions to calculate taxes from stock and salary
    ------------------------------
