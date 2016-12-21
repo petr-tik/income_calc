@@ -55,14 +55,16 @@ int calc_taxes(float *salary_ptr, float *taxes_paid, tax_t tax_rules)
 	   // If I close the for loop with a semicolon, it will be indented on a
 	   // newline
 
-	// starting from the top bracket, increment the taxes_paid ptr by
+	// starting from the top bracket, increment the taxes_paid ptr
+	// by
 	// the amount of tax at this tax bracket
-	for (;idx > -1; idx--) {
+	for (; idx > -1; idx--) {
 		taxes_paid_at_bracket = tax_rules.TAXRATES[idx] / 100 *
 					(salary - tax_rules.SALARY_LIMITS[idx]);
-		/* printf("At bracket %f, I pay %.2f\n",
-		 * tax_rules.TAXRATES[idx], */
-		/*        taxes_paid_at_bracket); // debugging */
+#if (DEBUG_LVL == 3)
+		printf("At bracket %.0f%, I pay %.2f\n",
+		       tax_rules.TAXRATES[idx], taxes_paid_at_bracket);
+#endif
 		*taxes_paid += taxes_paid_at_bracket;
 		salary = tax_rules.SALARY_LIMITS[idx];
 	}
@@ -194,23 +196,29 @@ int main(int argc, char *argv[])
 		printf("ERROR! Not enough arguments\n");
 		exit(1);
 	}
-	// DEBUGGING ONLY
-	/* printf("Parsed: \n\tsalary amount: %f\n\tlocation: %d\n\tmarried:
-	 * %d\n", */
-	/*        arg_options->amount, arg_options->location, */
-	/*        arg_options->married); */
+// DEBUGGING ONLY
+#if (DEBUG_LVL == 3)
+	printf("Parsed: \n\tsalary amount: %f\n\tlocation: %d\n\tmarried: %d\n",
+	       arg_options->amount, arg_options->location,
+	       arg_options->married);
+#endif
 	err_code = pay_taxes_from_salary(arg_options, salary_taxes_paid_ptr);
 	if (err_code == 0) {
 		*salary_after_tax_ptr =
 		    arg_options->amount - *salary_taxes_paid_ptr;
 		err_code =
 		    pay_taxes_from_stock(arg_options, netto_stock_profit_ptr);
-		// print_salary_stats(arg_options, salary_after_tax_ptr,
-		// arg_options->location);
 	} else {
+		free(arg_options);
 		return 1;
 	} // end else
+
+#if (DEBUG_LVL == 3)
+	print_salary_stats(arg_options, salary_after_tax_ptr);
+#elif(DEBUG_LVL == 2)
 	printf("%.2f\n", *salary_after_tax_ptr);
+#endif
+
 	free(arg_options);
 	return 0;
 }

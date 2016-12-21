@@ -94,8 +94,10 @@ int parser(int argc, char *argv[], struct options_t *options)
 	}
 
 	for (int idx = 1; idx < argc; idx++) {
-		// debugging only
-		// printf("Arg %d/%d: %s\n", idx, argc - 1, argv[idx]);
+// debugging only
+#if (DEBUG_LVL == 3)
+		printf("Arg %d/%d: %s\n", idx, argc - 1, argv[idx]);
+#endif
 		if (strcmp(argv[idx], "-m") == 0) // set the marriage flag to 1
 		{
 			options->married = 1;
@@ -123,7 +125,7 @@ int parser(int argc, char *argv[], struct options_t *options)
 				options->stock_amount =
 				    atof(argv[idx + 1]); // amount
 				memcpy(options->stock_quote, argv[idx + 2],
-				       sizeof(argv[idx + 2])); // quote
+				       sizeof(options->stock_quote)); // quote
 			} else {
 				return 1;
 			}
@@ -134,13 +136,15 @@ int parser(int argc, char *argv[], struct options_t *options)
 
 int check_options(options_t *options)
 {
-	/* Used after parser. Takes a pointer to options and checks how many
+	/* Used after parser. Takes a pointer to options and checks how
+	 many
 	 option flags have been filled in and returns an action code:
 	 0 - not even the obligatory info - location and amount
 	 1 - only basic info
 	 2 - full info including stocks
 
-	 The return code and location flag will be used to call the right tax
+	 The return code and location flag will be used to call the
+	 right tax
 	 method
       */
 	int ret = 0;
