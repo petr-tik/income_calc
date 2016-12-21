@@ -42,9 +42,6 @@ tax_t NYC = {.TAXRATES = {},
 
 int calc_taxes(float *salary_ptr, float *taxes_paid, tax_t tax_rules);
 
-int print_salary_stats(float *salary_before_tax, float *salary_after_tax,
-		       short int location);
-
 int UK_full(options_t *arg_options, float *salary_taxes_paid_ptr);
 
 int Cali_full(options_t *arg_options, float *salary_taxes_paid_ptr);
