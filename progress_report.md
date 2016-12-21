@@ -1,3 +1,24 @@
+## 20/12
+
+Adding debugging (made a separate branch) macros to print different levels of information and test differently.
+
+Currently, thinking about 3 levels of debugging:
+
+1. None - release candidate - will have a fancy output after calculating taxes
+2. Integration testing - print comma-separated annual salary_after_tax and stock_benefit_after_tax values (TODO: add later). This can be used to run a simple 
+
+    ```bash diff expected_output real_output``` 
+    
+    to see if the right value is calculated  
+3. Full - print information about function internals (inside if and for loops)
+
+Add makefile options to build 3 artefacts, run integration tests on the 2nd, if success, delete 2&3, else - debug. Starting issues:
+
+ - [ ] Add -DDEBUG_LVL gcc flag [#12](https://github.com/petr-tik/income_calc/issues/12)
+ - [ ] split debugging funcs into separate header file [#13](https://github.com/petr-tik/income_calc/issues/13)
+ - [ ] compile 3 candidates [#14](https://github.com/petr-tik/income_calc/issues/14)
+ - [ ] run integration testing on the 2nd to decide if delete 2&3 or debug [#15](https://github.com/petr-tik/income_calc/issues/15)
+
 ## 04/12
 
 Restructured the folder, merged Bilyan's PR, fixed the issue he opened (#6 on GitHub), by installing and setting up clang-format with the commited .clang-format file.
