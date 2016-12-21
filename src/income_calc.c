@@ -50,8 +50,10 @@ int calc_taxes(float *salary_ptr, float *taxes_paid, tax_t tax_rules)
 	float salary = *salary_ptr;
 	int idx = 0;
 	float taxes_paid_at_bracket = 0;
-	for (; salary > tax_rules.SALARY_LIMITS[idx + 1]; ++idx)
-		;
+	for (; salary > tax_rules.SALARY_LIMITS[idx + 1]; ++idx) {
+	}; // clang-format error.
+	   // If I close the for loop with a semicolon, it will be indented on a
+	   // newline
 
 	// starting from the top bracket, increment the taxes_paid ptr by
 	// the amount of tax at this tax bracket
