@@ -95,7 +95,7 @@ int parser(int argc, char *argv[], struct options_t *options)
 
 	for (int idx = 1; idx < argc; idx++) {
 // debugging only
-#if (DEBUG_LVL == 2)
+#if (DEBUG_LVL == 3)
 		printf("Arg %d/%d: %s\n", idx, argc - 1, argv[idx]);
 #endif
 		if (strcmp(argv[idx], "-m") == 0) // set the marriage flag to 1

@@ -33,7 +33,7 @@ $(BUILD_DIR)/%.s: $(BUILD_DIR)/%.i
 $(BUILD_DIR)/%.o: $(BUILD_DIR)/%.s
 	$(CC) $(CFLAGS) -c $< -o $@
 
-income_calc: CPPFLAGS+=-DDEBUG_LVL=0
+income_calc: CPPFLAGS+=-DDEBUG_LVL=1
 income_calc: $(OBJS)
 	#python $(STOCK_DLOAD_SCRIPT)
 	$(CC) $(OBJS) -o $@ $(LIBS)
@@ -48,7 +48,10 @@ income_calc_test3: $(OBJS)
 
 
 install: income_calc
-	cp income_calc usr/local/bin/income_calc
+	sudo cp income_calc /usr/local/bin/income_calc
+
+uninstall: clean
+	sudo rm /usr/local/bin/income_calc
 
 test_python: $(STOCK_DLOAD_SCRIPT)
 	python -m unittest discover -s tests/
