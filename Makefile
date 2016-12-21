@@ -4,26 +4,51 @@ CC=gcc
 CFLAGS=-ggdb3 -Wall
 LIBS=-lm
 STOCK_DLOAD_SCRIPT=download_stock_quotes.py
-SRCS=$(wildcard src/*.c) #uses implicit rules to make object files
-OBJS=$(SRCS:.c=.o)
-# define the C object files 
-#
-# This uses Suffix Replacement within a macro:
-#   $(name:string1=string2)
-#         For each word in 'name' replace 'string1' with 'string2'
-# Below we are replacing the suffix .c of all words in the macro SRCS
-# with the .o suffix
+SRCS=$(wildcard src/*.c)
 
 .PHONY: clean
+.SECONDARY:
+# secondary stops make deleting intermediary files .s and .i
 
-default: income_calc
+OBJS = $(patsubst src/%.c, $(BUILD_DIR)/%.o, $(wildcard src/*.c))
+# uses string formatting rules 
+# define the C object files 
+# take all .c in src/
+# tokenize src/%.c, where % is the stem
+# make the new list = build/5.o
 
-%.o : %.c
-	$(CC) -c $(CFLAGS) $< -o $@
+Makefile: ;
+SRC_DIR = src
+BUILD_DIR = build
 
+$(BUILD_DIR):
+	mkdir -p $(BUILD_DIR)
+
+$(BUILD_DIR)/%.i: $(SRC_DIR)/%.c $(BUILD_DIR)
+	$(CC) $(CPPFLAGS) $< -E > $@
+
+$(BUILD_DIR)/%.s: $(BUILD_DIR)/%.i
+	$(CC) $(CFLAGS) -S $< -o $@
+
+$(BUILD_DIR)/%.o: $(BUILD_DIR)/%.s
+	$(CC) $(CFLAGS) -c $< -o $@
+
+income_calc: CPPFLAGS+=-DDEBUG_LVL=0
 income_calc: $(OBJS)
-	python $(STOCK_DLOAD_SCRIPT)
-	$(CC) $(CFLAGS) $(OBJS) -o $@ $(LIBS)
+	#python $(STOCK_DLOAD_SCRIPT)
+	$(CC) $(OBJS) -o $@ $(LIBS)
+
+income_calc_test2: CPPFLAGS+=-DDEBUG_LVL=2
+income_calc_test2: $(OBJS) 
+	$(CC) $(CFLAGS) $^ -o $@ $(LIBS)
+
+income_calc_test3: CPPFLAGS+=-DDEBUG_LVL=3
+income_calc_test3: $(OBJS) 
+	$(CC) $(CFLAGS) $^ -o $@ $(LIBS)
+
+
+install: income_calc
+	cp income_calc usr/local/bin/income_calc
 
 test_python: $(STOCK_DLOAD_SCRIPT)
 	python -m unittest discover -s tests/
@@ -32,6 +57,7 @@ test: income_calc
 	./test_calc.sh
 
 clean:
-	rm $(OBJS)
+	rm -r $(BUILD_DIR)
+	rm income_calc*
 
 

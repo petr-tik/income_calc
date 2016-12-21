@@ -6,9 +6,12 @@
    ------------------------------
 */
 
-#define STR(x)   #x
+#define STR(x) #x
 #define SHOW_DEFINE(x) printf("%s=%s\n", #x, STR(x))
 
+#ifndef DEBUG_LVL
+#define DEBUG_LVL 1
+#endif
 
 extern int print_salary_stats(options_t *arg_options, float *salary_after_tax)
 {
