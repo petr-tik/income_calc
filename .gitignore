@@ -2,4 +2,4 @@
 TAGS
 income_calc
 *.o
-*~
+*~/build/
