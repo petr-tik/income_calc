@@ -139,12 +139,28 @@ int NYC_full(options_t *arg_options, float *salary_taxes_paid_ptr) { return 0; }
 int UK_full(options_t *arg_options, float *salary_taxes_paid_ptr)
 {
 	/* Given pointers to salary and taxes, applies respective tax rates and
-	 * full costs of national insurance and assign it to respective pointers
+	 * full costs of national insurance and assign it to respective
+	 pointers.
+	 Returns errcode and increments salary_taxes_paid_ptr value by the total
+	 amount of taxes paid
 	 */
 	float salary;
 	salary = arg_options->amount;
 	int err_code;
 	tax_t taxes = UK;
+#if (DEBUG_LVL == 3)
+	for (int idx = 0; idx < 10; idx++) {
+		printf("%i, %i", taxes.SALARY_LIMITS[idx], taxes.TAXRATES[idx]);
+	}
+#endif
+	if (salary > 100000) {
+		// https://www.gov.uk/income-tax-rates/income-over-100000
+		int new_personal_allowance;
+		int old_personal_allowance = taxes.SALARY_LIMITS[1];
+		new_personal_allowance = (salary - 100000) / 2;
+		UK.SALARY_LIMITS[1] =
+		    old_personal_allowance - new_personal_allowance;
+	}
 	tax_t NI = UK_NI;
 	// apply taxes
 	err_code = calc_taxes(&salary, salary_taxes_paid_ptr, taxes);

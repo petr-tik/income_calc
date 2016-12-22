@@ -25,7 +25,7 @@ tax_t UK_NI = {.TAXRATES = {0, 12, 2, MAX_PERC},
 tax_t California = {
     .TAXRATES = {1, 2, 4, 6, 8, 9.3, 10.3, 11.3, 12.3, MAX_PERC},
     .SALARY_LIMITS = {0, 7850, 18610, 29372, 40773, 51350, 263222, 315866,
-		      526443, 1000000, MAX_FLOAT},
+		      526443, MAX_FLOAT},
     .SIGN = "$"};
 
 tax_t Russia = {.TAXRATES = {13}, .SALARY_LIMITS = {MAX_FLOAT}, .SIGN = "RUB"};
