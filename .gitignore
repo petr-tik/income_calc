@@ -1,5 +1,7 @@
 *.csv
 TAGS
-income_calc
 *.o
-*~/build/
+*~
+/build/
+/income_calc*
+*.pyc
