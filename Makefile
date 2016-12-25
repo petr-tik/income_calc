@@ -48,10 +48,10 @@ income_calc_test3: $(OBJS)
 
 
 install: income_calc
-	sudo cp income_calc /usr/local/bin/income_calc
+	cp income_calc /usr/local/bin/income_calc
 
 uninstall: clean
-	sudo rm /usr/local/bin/income_calc
+	rm /usr/local/bin/income_calc
 
 test_python: $(STOCK_DLOAD_SCRIPT)
 	python -m unittest discover -s tests/
