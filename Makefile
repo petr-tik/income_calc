@@ -1,7 +1,8 @@
 OS := $(shell uname)
 
-CC=gcc
-CFLAGS=-ggdb3 -Wall
+CC=clang
+#CFLAGS=-ggdb3 -Wall
+CFLAGS=-Wall # clang doesn't work with -g option
 LIBS=-lm
 STOCK_DLOAD_SCRIPT=download_stock_quotes.py
 SRCS=$(wildcard src/*.c)
