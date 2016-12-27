@@ -1,4 +1,4 @@
-#ifndef _PARSER_H_
+#ifndef _PARSER_H
 #define _PARSER_H
 
 /* Module for CLI interaction - receiving and processing terminal commands,

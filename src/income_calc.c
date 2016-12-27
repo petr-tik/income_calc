@@ -144,8 +144,7 @@ int UK_full(options_t *arg_options, float *salary_taxes_paid_ptr)
 	 Returns errcode and increments salary_taxes_paid_ptr value by the total
 	 amount of taxes paid
 	 */
-	float salary;
-	salary = arg_options->amount;
+	float salary = arg_options_ptr->amount;
 	int err_code;
 	tax_t taxes = UK;
 #if (DEBUG_LVL == 3)
@@ -167,9 +166,6 @@ int UK_full(options_t *arg_options, float *salary_taxes_paid_ptr)
 	if (err_code == 0) {
 		// apply national insurance
 		err_code = calc_taxes(&salary, salary_taxes_paid_ptr, NI);
-		if (err_code == 0) {
-			return err_code;
-		}
 	} // if end
 
 	return err_code;
