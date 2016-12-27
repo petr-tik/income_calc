@@ -1,3 +1,11 @@
+## 27/12 
+
+On the plane to Tenerife. Wanted to explain the motivation behind refactoring in 026cb882a7667e1306a40ea0f9a49c11c86e5eda
+
+In main there are 2 big functions - paytaxes and paysalary from stock - which use helper functions in a russian-doll (matryoshka) style. Main allocates necessary structs keeping track of user-input from terminal (options\_t) and taxes and the aftermath (salary\_n\_taxes\_t). Then 2 funcs are called - pay\_taxes\_from\_salary and pay\_taxes\_from\_stock, which take the 2 structs above. Inside each of the funcs, a case of country-specific helper function is chosen by options\_t->location flag and a pointer to salary\_taxes\_paid/stock\_taxes\_paid (inside salary\_n\_taxes\_t) is created on the stack of pay\_taxes\_from function, which passes the relevant pointer to country-specific helper function. 
+
+Each country-specific function calls the meta-function used to calculate any sort of progressive tax contribution, which is calculated using taxrates and salary\_limits fields in the tax_t struct. 
+
 ## 20/12
 
 Adding debugging (made a separate branch) macros to print different levels of information and test differently.
