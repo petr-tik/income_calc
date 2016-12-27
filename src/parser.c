@@ -33,15 +33,17 @@ void show_version() { printf("Income calculator version %.1f\n", VERSION); }
 options_t *options_init()
 {
 	/* Initialise an options_t struct with default values */
-	options_t *options = malloc(sizeof(struct options_t));
-	options->amount = -1;
-	options->married = 0; // won't change unless -m option
-	options->location = -1;
-	options->stock_amount = 0;
-	memcpy(options->stock_quote, "", sizeof(""));
-	return options;
+	options_t *options_ptr = malloc(sizeof(struct options_t));
+	if (options_ptr == NULL) {
+		exit(1);
+	}
+	options_ptr->amount = -1;
+	options_ptr->married = 0; // won't change unless -m option
+	options_ptr->location = -1;
+	options_ptr->stock_amount = 0;
+	memcpy(options_ptr->stock_quote, "", sizeof(""));
+	return options_ptr;
 }
-
 
 short int parse_location(const char *loc_arg)
 {

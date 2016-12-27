@@ -14,6 +14,13 @@ typedef struct tax_t {
 	char SIGN[3];
 } tax_t;
 
+typedef struct salary_n_taxes_t {
+	float salary_after_taxes;
+	float salary_taxes_paid;
+	float stock_profit_after_taxes;
+	float stock_taxes_paid;
+} salary_n_taxes_t;
+
 tax_t UK = {.TAXRATES = {0, 20, 40, 45, MAX_PERC},
 	    .SALARY_LIMITS = {0, 11000, 43000, 150000, MAX_FLOAT},
 	    .SIGN = "£"};
@@ -40,6 +47,8 @@ tax_t NYC = {.TAXRATES = {},
 };
 */
 
+salary_n_taxes_t *salary_n_taxes_init();
+
 int calc_taxes(float *salary_ptr, float *taxes_paid, tax_t tax_rules);
 
 int UK_full(options_t *arg_options, float *salary_taxes_paid_ptr);
@@ -48,8 +57,10 @@ int Cali_full(options_t *arg_options, float *salary_taxes_paid_ptr);
 
 int NYC_full(options_t *arg_options, float *salary_taxes_paid_ptr);
 
-int pay_taxes_from_salary(options_t *arg_options, float *salary_taxes_paid_ptr);
+int pay_taxes_from_salary(options_t *arg_options,
+			  salary_n_taxes_t *salary_n_taxes_ptr);
 
-int pay_taxes_from_stock(options_t *arg_options, float *netto_stock_profit_ptr);
+int pay_taxes_from_stock(options_t *arg_options,
+			 salary_n_taxes_t *salary_n_taxes_ptr);
 
 #endif

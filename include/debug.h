@@ -13,7 +13,8 @@
 #define DEBUG_LVL 1
 #endif
 
-extern int print_salary_stats(options_t *arg_options, float *salary_after_tax)
+extern int print_salary_stats(options_t *arg_options,
+			      salary_n_taxes_t *salary_n_taxes_ptr)
 {
 	/* Given a pointer to salary after tax value (annual),
 	   print out weekly and monthly allowance */
@@ -31,11 +32,11 @@ extern int print_salary_stats(options_t *arg_options, float *salary_after_tax)
 	default:
 		return 1;
 	}
+	float salary_after_tax = salary_n_taxes_ptr->salary_after_taxes;
 	printf("Salary before taxes: %s%.2f\n", sign, arg_options->amount);
-	printf("Salary after tax: %s%.2f\n", sign, *salary_after_tax);
-	printf("Your monthly allowance: %s%.2f\n", sign,
-	       *salary_after_tax / 12);
-	printf("Your weekly allowance: %s%.2f\n", sign, *salary_after_tax / 52);
+	printf("Salary after tax: %s%.2f\n", sign, salary_after_tax);
+	printf("Your monthly allowance: %s%.2f\n", sign, salary_after_tax / 12);
+	printf("Your weekly allowance: %s%.2f\n", sign, salary_after_tax / 52);
 	return 0;
 }
 

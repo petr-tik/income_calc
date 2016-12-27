@@ -30,6 +30,23 @@
   country
 */
 
+salary_n_taxes_t *salary_n_taxes_init()
+{
+	/* Mallocs and returns pointer to struct, which will carry information
+	 * about taxes paid from stock and salary and how much money you have
+	 * afterwards */
+	salary_n_taxes_t *salary_n_taxes_ptr =
+	    malloc(sizeof(struct salary_n_taxes_t));
+	if (salary_n_taxes_ptr == NULL) {
+		exit(1);
+	}
+	salary_n_taxes_ptr->salary_taxes_paid = 0;
+	salary_n_taxes_ptr->salary_after_taxes = 0;
+	salary_n_taxes_ptr->stock_taxes_paid = 0;
+	salary_n_taxes_ptr->stock_profit_after_taxes = 0;
+	return salary_n_taxes_ptr;
+}
+
 /*
    ------------------------------
    ------------------------------
@@ -72,10 +89,12 @@ int calc_taxes(float *salary_ptr, float *taxes_paid, tax_t tax_rules)
 	return 0;
 }
 
-int pay_taxes_from_salary(options_t *arg_options, float *salary_taxes_paid_ptr)
+int pay_taxes_from_salary(options_t *arg_options,
+			  salary_n_taxes_t *salary_n_taxes_ptr)
 {
 	int err_code = 0;
 	int location = arg_options->location;
+	float *salary_taxes_paid_ptr = &(salary_n_taxes_ptr->salary_taxes_paid);
 	switch (location) {
 	case 1:
 		// first field in struct is pointer to struct
@@ -103,7 +122,8 @@ int pay_taxes_from_salary(options_t *arg_options, float *salary_taxes_paid_ptr)
 	return err_code;
 }
 
-int pay_taxes_from_stock(options_t *arg_options, float *netto_stock_profit_ptr)
+int pay_taxes_from_stock(options_t *arg_options,
+			 salary_n_taxes_t *salary_n_taxes_ptr)
 {
 	/* Given pointers to:
 		  struct with cli args
@@ -111,8 +131,11 @@ int pay_taxes_from_stock(options_t *arg_options, float *netto_stock_profit_ptr)
 	   Calculate how much money you make, if you liquidate your stock at
 	   the current (or stored) price and pay taxes on it in your country
 	*/
+	float *stock_taxes_paid = &(salary_n_taxes_ptr->stock_taxes_paid);
+	float *stock_profit_after_taxes =
+	    &(salary_n_taxes_ptr->stock_profit_after_taxes);
 	if (arg_options->stock_amount == 0) {
-		*netto_stock_profit_ptr = 0;
+		*stock_profit_after_taxes = 0;
 		return 0;
 	}
 
@@ -125,18 +148,21 @@ int pay_taxes_from_stock(options_t *arg_options, float *netto_stock_profit_ptr)
    ------------------------------
 */
 
-int Cali_full(options_t *arg_options, float *salary_taxes_paid_ptr)
+int Cali_full(options_t *arg_options_ptr, float *salary_taxes_paid_ptr)
 {
 	/* Helper function that calculates all tax contributions
 	   including healthcare charges.
 	   The value of all taxes paid will be added to the taxes_paid ptr  */
-	int married = arg_options->married;
+	int married = arg_options_ptr->married;
 	return 0;
 }
 
-int NYC_full(options_t *arg_options, float *salary_taxes_paid_ptr) { return 0; }
+int NYC_full(options_t *arg_options_ptr, float *salary_taxes_paid_ptr)
+{
+	return 0;
+}
 
-int UK_full(options_t *arg_options, float *salary_taxes_paid_ptr)
+int UK_full(options_t *arg_options_ptr, float *salary_taxes_paid_ptr)
 {
 	/* Given pointers to salary and taxes, applies respective tax rates and
 	 * full costs of national insurance and assign it to respective
@@ -176,21 +202,14 @@ int main(int argc, char *argv[])
 	/* the main initialises the necessary pointers,
 	   all functions take at least pointers to salary and taxes_paid.
 	   US tax funcs take pointer to married parameter */
-	float salary_after_tax;
-	float *salary_after_tax_ptr = &salary_after_tax;
-	float salary_taxes_paid = 0;
-	float *salary_taxes_paid_ptr = &salary_taxes_paid;
-	float netto_stock_profit = 0;
-	float *netto_stock_profit_ptr = &netto_stock_profit;
-
+	salary_n_taxes_t *salary_n_taxes_ptr = salary_n_taxes_init();
 	// parser module - create and init an options struct
-	options_t *arg_options = options_init();
-	if (salary_after_tax_ptr == NULL || salary_taxes_paid_ptr == NULL ||
-	    arg_options == NULL) {
+	options_t *arg_options_ptr = options_init();
+	if (salary_n_taxes_ptr == NULL || arg_options_ptr == NULL) {
 		exit(1);
 	}
-	int err_code = parser(argc, argv, arg_options);
-	int options_validity = check_options(arg_options);
+	int err_code = parser(argc, argv, arg_options_ptr);
+	int options_validity = check_options(arg_options_ptr);
 	switch (err_code) {
 	case -1:
 		show_version();
@@ -211,26 +230,32 @@ int main(int argc, char *argv[])
 // DEBUGGING ONLY
 #if (DEBUG_LVL == 3)
 	printf("Parsed: \n\tsalary amount: %f\n\tlocation: %d\n\tmarried: %d\n",
-	       arg_options->amount, arg_options->location,
-	       arg_options->married);
+	       arg_options_ptr->amount, arg_options_ptr->location,
+	       arg_options_ptr->married);
 #endif
-	err_code = pay_taxes_from_salary(arg_options, salary_taxes_paid_ptr);
+	err_code = pay_taxes_from_salary(arg_options_ptr, salary_n_taxes_ptr);
 	if (err_code == 0) {
-		*salary_after_tax_ptr =
-		    arg_options->amount - *salary_taxes_paid_ptr;
+		salary_n_taxes_ptr->salary_after_taxes =
+		    arg_options_ptr->amount -
+		    salary_n_taxes_ptr->salary_taxes_paid;
 		err_code =
-		    pay_taxes_from_stock(arg_options, netto_stock_profit_ptr);
+		    pay_taxes_from_stock(arg_options_ptr, salary_n_taxes_ptr);
 	} else {
-		free(arg_options);
+		free(salary_n_taxes_ptr);
+		free(arg_options_ptr);
 		return 1;
 	} // end else
 
-#if (DEBUG_LVL == 3)
-	print_salary_stats(arg_options, salary_after_tax_ptr);
+#if (DEBUG_LVL == 1)
+	if (err_code == 0) { // after paying taxes
+		print_salary_stats(arg_options_ptr, salary_n_taxes_ptr);
+	}
+#elif(DEBUG_LVL == 3)
+	print_salary_stats(arg_options_ptr, salary_after_tax_ptr);
 #elif(DEBUG_LVL == 2)
-	printf("%.2f\n", *salary_after_tax_ptr);
+	printf("%.2f\n", salary_n_taxes_ptr->salary_after_taxes);
 #endif
-
-	free(arg_options);
+	free(salary_n_taxes_ptr);
+	free(arg_options_ptr);
 	return 0;
 }
