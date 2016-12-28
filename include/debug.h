@@ -42,7 +42,6 @@ extern int print_salary_stats(options_t *arg_options,
 
 extern void print_options(struct options_t *options)
 {
-	// ONLY FOR DEBUGGING - REMOVE FROM END PRODUCT
 	printf("\n\n\nI am a DEBUGGING function. If you see me, it's in debug "
 	       "mode\n");
 	printf("Salary is: %f\n", options->amount);

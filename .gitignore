@@ -5,3 +5,4 @@ TAGS
 /build/
 /income_calc*
 *.pyc
+/bin/

@@ -6,15 +6,15 @@ Experimental version with basic functionality for UK salaries without shares
 
 _Currently only supports unix-like OS'es, sorry no Windows_
 
-Requirements:
+Build Requirements:
  - Stdlib C
  - GNU make
 
-Download the repo and run make. 
+Download the repo and run make
 ```bash
 git clone https://github.com/petr-tik/income_calc.git
 cd income_calc
-make
+make all
 ```
 
 You should have an executable called ```income_calc```
@@ -31,6 +31,11 @@ make test_python
 Run integration tests
 ```bash
 make test
+```
+
+Statically analyse code (.c and .h files) with clang
+```bash
+make analyze
 ```
 
 ## Usage: 
@@ -63,10 +68,11 @@ Open issues
 
 ### Code submission, pull requests
 
-#### Requirements
+#### Requirements to contribute
  - Stdlib C
  - GNU make
  - clang-format
+ - clang (for static code analysis)
 
 #### Step-by-step guide
 
