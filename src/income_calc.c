@@ -79,8 +79,8 @@ int calc_taxes(float *salary_ptr, float *taxes_paid, tax_t tax_rules)
 		taxes_paid_at_bracket = tax_rules.TAXRATES[idx] / 100 *
 					(salary - tax_rules.SALARY_LIMITS[idx]);
 #if (DEBUG_LVL == 3)
-		printf("At bracket %.0f%, I pay %.2f\n",
-		       tax_rules.TAXRATES[idx], taxes_paid_at_bracket);
+		printf("At bracket %.0f I pay %.2f\n", tax_rules.TAXRATES[idx],
+		       taxes_paid_at_bracket);
 #endif
 		*taxes_paid += taxes_paid_at_bracket;
 		salary = tax_rules.SALARY_LIMITS[idx];
@@ -175,7 +175,8 @@ int UK_full(options_t *arg_options_ptr, float *salary_taxes_paid_ptr)
 	tax_t taxes = UK;
 #if (DEBUG_LVL == 3)
 	for (int idx = 0; idx < 10; idx++) {
-		printf("%i, %i", taxes.SALARY_LIMITS[idx], taxes.TAXRATES[idx]);
+		printf("%i, %f\n", taxes.SALARY_LIMITS[idx],
+		       taxes.TAXRATES[idx]);
 	}
 #endif
 	if (salary > 100000) {
@@ -247,13 +248,13 @@ int main(int argc, char *argv[])
 	} // end else
 
 #if (DEBUG_LVL == 1)
-	if (err_code == 0) { // after paying taxes
+	if (err_code == 0) { // after paying taxes from stock
 		print_salary_stats(arg_options_ptr, salary_n_taxes_ptr);
 	}
-#elif(DEBUG_LVL == 3)
-	print_salary_stats(arg_options_ptr, salary_after_tax_ptr);
 #elif(DEBUG_LVL == 2)
 	printf("%.2f\n", salary_n_taxes_ptr->salary_after_taxes);
+#elif(DEBUG_LVL == 3)
+	print_salary_stats(arg_options_ptr, salary_n_taxes_ptr);
 #endif
 	free(salary_n_taxes_ptr);
 	free(arg_options_ptr);
