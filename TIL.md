@@ -1,5 +1,19 @@
 # Things I learnt
 
+# 29/12/16
+
+reading K&R - turns out printf returns the int number of characters it printed out.
+
+printf("%.<number>[s|f|i]") where .<number> specifies precision, which does differnt things for each var type:
+    - float - print <number> of digits after decimal point
+    - string - print <number> of chars from a string
+    - int - print <number> of digits from an int
+    
+so instead of doing a for-loop with a counter to print out first x chars from a string, just do 
+
+printf("%.<x>s", string);
+
+
 # 21/12/16
 
 Wrestling with horrible linker errors not letting me build an executable.
