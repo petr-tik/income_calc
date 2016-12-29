@@ -225,7 +225,7 @@ int main(int argc, char *argv[])
 		/* If either the parser had difficulty,
 		   or the options were checked to be missing information - break
 		   now */
-		printf("ERROR! Not enough arguments\n");
+		printf("ERROR! Invalid arguments\n");
 		exit(1);
 	}
 // DEBUGGING ONLY

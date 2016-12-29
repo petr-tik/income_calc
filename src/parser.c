@@ -77,6 +77,21 @@ short int parse_location(const char *loc_arg)
 	}
 }
 
+int isnumber(char *string)
+{
+	/* Checks if all chars in a string are a digit i.e. if the whole string
+	 * is a number. Similarly to is[digit, alpha etc] returns 1 if args is a
+	 * member of the class i.e. a number, else 0  */
+	char *symbol = string;
+	while (*symbol != '\0') {
+		if (isdigit(*symbol) == 0) {
+			return 0;
+		}
+		symbol++;
+	}
+	return 1;
+}
+
 int parser(int argc, char *argv[], struct options_t *options)
 {
 	/* Given pointers: to arg string and to options struct, modiy the struct
@@ -106,7 +121,9 @@ int parser(int argc, char *argv[], struct options_t *options)
 		} // end marriage - how very sad :-)
 		else if (strcmp(argv[idx], "-a") == 0) // salary amount
 		{
-			if (argc >= idx + 1) {
+			if (argc >= idx + 1 && isnumber(argv[idx + 1]) == 1) {
+				// check that there is an argument and it's
+				// valid (all numeric)
 				options->amount = atof(argv[idx + 1]);
 			} else {
 				return 1;
@@ -123,7 +140,7 @@ int parser(int argc, char *argv[], struct options_t *options)
 		}				       // end location
 		else if (strcmp(argv[idx], "-s") == 0) // stock options
 		{
-			if (argc >= idx + 2) {
+			if (argc >= idx + 2 && isnumber(argv[idx + 1]) == 1) {
 				options->stock_amount =
 				    atof(argv[idx + 1]); // amount
 				memcpy(options->stock_quote, argv[idx + 2],
