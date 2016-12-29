@@ -207,6 +207,8 @@ int main(int argc, char *argv[])
 	// parser module - create and init an options struct
 	options_t *arg_options_ptr = options_init();
 	if (salary_n_taxes_ptr == NULL || arg_options_ptr == NULL) {
+		free(salary_n_taxes_ptr);
+		free(arg_options_ptr);
 		exit(1);
 	}
 	int err_code = parser(argc, argv, arg_options_ptr);
@@ -214,10 +216,14 @@ int main(int argc, char *argv[])
 	switch (err_code) {
 	case -1:
 		show_version();
+		free(salary_n_taxes_ptr);
+		free(arg_options_ptr);
 		exit(1);
 
 	case -2:
 		show_help();
+		free(salary_n_taxes_ptr);
+		free(arg_options_ptr);
 		exit(1);
 	}
 
