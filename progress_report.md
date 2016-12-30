@@ -22,9 +22,9 @@ Currently, thinking about 3 levels of debugging:
 
 Add makefile options to build 3 artefacts, run integration tests on the 2nd, if success, delete 2&3, else - debug. Starting issues:
 
- - [ ] Add -DDEBUG_LVL gcc flag [#12](https://github.com/petr-tik/income_calc/issues/12)
- - [ ] split debugging funcs into separate header file [#13](https://github.com/petr-tik/income_calc/issues/13)
- - [ ] compile 3 candidates [#14](https://github.com/petr-tik/income_calc/issues/14)
+ - [x] Add -DDEBUG_LVL gcc flag [#12](https://github.com/petr-tik/income_calc/issues/12)
+ - [x] split debugging funcs into separate header file [#13](https://github.com/petr-tik/income_calc/issues/13)
+ - [x] compile 3 candidates [#14](https://github.com/petr-tik/income_calc/issues/14)
  - [ ] run integration testing on the 2nd to decide if delete 2&3 or debug [#15](https://github.com/petr-tik/income_calc/issues/15)
 
 ## 04/12
