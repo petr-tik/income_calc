@@ -19,6 +19,15 @@ make all
 
 You should have an executable called ```income_calc```
 
+## Try in Docker
+
+Use the Dockerfile in the repo (as of release v0.3) to build and run a Docker image
+
+```bash
+docker build -t petr_tik/income_calc:devel .
+docker run -it petr_tik/income_calc:devel bash
+```
+
 ## Testing: 
 
 https://www.incometaxcalculator.org.uk was used to check my salary calculator against.
