@@ -67,8 +67,11 @@ income_calc_test3: $(OBJ_FILES) $(BIN_DIR)
 	$(CC) $(CFLAGS) $(OBJ_FILES) -o $(BIN_DIR)/$@ $(LIBS)
 
 install: income_calc
-	#only use sudo if whoami doesn't give root
-	sudo cp $(BIN_DIR)/income_calc /usr/local/bin/income_calc
+	ifeq ($(shell whoami),root) # for docker - root user
+		cp $(BIN_DIR)/income_calc /usr/local/bin/income_calc
+	else # for other places
+		sudo cp $(BIN_DIR)/income_calc /usr/local/bin/income_calc
+	endif
 
 uninstall:
 	sudo rm /usr/local/bin/income_calc
