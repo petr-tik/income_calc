@@ -7,8 +7,10 @@ RUN apk update && apk upgrade && \
 
 ENV LANG=C.UTF-8
 
-RUN git clone https://github.com/petr-tik/income_calc.git && \
-    cd income_calc && \
+
+# git clone is cached, use COPY to copy local dir instead 
+COPY . /income_calc/.
+RUN cd /income_calc && \
     make income_calc_test2 && \
     make install
 

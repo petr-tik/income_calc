@@ -95,4 +95,7 @@ clean_build:
 
 clean_all:
 	rm -r $(BUILD_DIR) $(BIN_DIR)
+docker_build:
+	make clean_all
+	docker build -t petr_tik/income_calc:new .
 
