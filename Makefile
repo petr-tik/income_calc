@@ -66,15 +66,22 @@ income_calc_test3: CPPFLAGS+=-DDEBUG_LVL=3
 income_calc_test3: $(OBJ_FILES) $(BIN_DIR)
 	$(CC) $(CFLAGS) $(OBJ_FILES) -o $(BIN_DIR)/$@ $(LIBS)
 
+install: SHELL := /bin/bash
 install: income_calc
-	ifeq ($(shell whoami),root) # for docker - root user
-		cp $(BIN_DIR)/income_calc /usr/local/bin/income_calc
-	else # for other places
-		sudo cp $(BIN_DIR)/income_calc /usr/local/bin/income_calc
-	endif
+	if [ $(shell whoami) == "root" ] ; then \
+		cp $(BIN_DIR)/income_calc /usr/local/bin/income_calc; \
+	else\
+		sudo cp $(BIN_DIR)/income_calc /usr/local/bin/income_calc; \
+	fi
 
-uninstall:
-	sudo rm /usr/local/bin/income_calc
+uninstall: SHELL := /bin/bash
+uninstall: 
+	if [ $(shell whoami) == "root" ] ; then \
+		rm /usr/local/bin/income_calc; \
+	else\
+		sudo rm /usr/local/bin/income_calc; \
+	fi
+
 
 all: # makes all artefacts, installs main into executable path
 	make install
