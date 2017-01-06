@@ -98,10 +98,11 @@ test: income_calc
 	./test_calc.sh
 
 clean_build:
-	rm -r $(BUILD_DIR)
+	-rm -r $(BUILD_DIR)
 
 clean_all:
-	rm -r $(BUILD_DIR) $(BIN_DIR)
+	-rm -r $(BUILD_DIR) $(BIN_DIR)
+	-rm *.plist
 docker_build:
 	make clean_all
 	docker build -t petr_tik/income_calc:new .
