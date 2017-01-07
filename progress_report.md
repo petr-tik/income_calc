@@ -1,3 +1,10 @@
+## 7/1/17
+
+Been playing around with Docker and clang. Now have a versatile makefile to make executables in a minimal container (with make, bash and gcc). 
+Also improved memory safety by free'ing all malocs and improved error messages (i.e. made them more general for more cases). 
+A custom function now checks for numeric inputs to -a and -s flags, so you cannot pass rubbish to it. 
+
+
 ## 27/12 
 
 On the plane to Tenerife. Wanted to explain the motivation behind refactoring in 026cb882a7667e1306a40ea0f9a49c11c86e5eda
