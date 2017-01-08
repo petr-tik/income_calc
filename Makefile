@@ -103,7 +103,14 @@ clean_build:
 clean_all:
 	-rm -r $(BUILD_DIR) $(BIN_DIR)
 	-rm *.plist
+
 docker_build:
 	make clean_all
 	docker build -t petr_tik/income_calc:new .
 
+docker_run:
+	# takes the most recent image from the income_calc repo
+	docker run -it $(shell docker images petr_tik/income_calc -q | head -n 1) /bin/bash
+
+docker_build_and_run_new: docker_build
+	make docker_run
