@@ -6,6 +6,8 @@ Experimental version with basic functionality for UK salaries without shares
 
 _Currently only supports unix-like OS'es, sorry no Windows_
 
+### Working executable
+
 Build Requirements:
  - Stdlib C
  - GNU make
@@ -14,18 +16,23 @@ Download the repo and run make
 ```bash
 git clone https://github.com/petr-tik/income_calc.git
 cd income_calc
-make all
+make install
 ```
 
 You should have an executable called ```income_calc```
+
+### Testing artefacts
+
+You can also compile 2 artefacts for testing, which use macros to make executableswith different levels of verbosity.  
+ - income\_calc\_test2 - integration testing. Prints a 2 decimal places float value or the error message after calculating the salary income after paying taxes
+ - income\_calc\_test3 - super verbose. Prints how much money was paid at every tax bracket and other information for debugging. 
 
 ## Try in Docker
 
 Use the Dockerfile in the repo (as of release v0.3) to build and run a Docker image
 
 ```bash
-docker build -t petr_tik/income_calc:devel .
-docker run -it petr_tik/income_calc:devel bash
+make docker_build_and_run_new
 ```
 
 ## Testing: 
@@ -100,4 +107,4 @@ git commit -am "meaningful commit message"
 git push origin new_feature_branch
 ```
 
-Go to the branch on your GitHub fork and send a PR to the master branch 
+Go to the branch on your GitHub fork and send a PR to the petr_tik/master
