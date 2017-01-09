@@ -25,6 +25,12 @@ options_t *options_init();
 
 int parser(int argc, char *argv[], struct options_t *options);
 
+#if (DEBUG_LVL == 3)
+extern int isnumber(char *string);
+#else
+int isnumber(char *string);
+#endif
+
 short int parse_location(const char *loc_arg);
 
 // debugging/testing funcs
