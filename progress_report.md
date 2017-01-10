@@ -1,3 +1,8 @@
+## 10/1/17
+
+Started primitive testing by compiling a small executable with test cases to examine the correctness of different components. The overall idea is to have ```bash make test```, which calls all the subtargets like ```make test_parser```, ```make test_calc``` and others. 
+
+
 ## 7/1/17
 
 Been playing around with Docker and clang. Now have a versatile makefile to make executables in a minimal container (with make, bash and gcc). 
