@@ -97,9 +97,9 @@ test_python: $(STOCK_DLOAD_SCRIPT)
 test: income_calc
 	./test_calc.sh
 test_unit_parser: CPPFLAGS+=-DDEBUG_LVL=3
+#test_unit_parser: CPPFLAGS+=-DDEBUG_LVL=3
 test_unit_parser: src/parser.c tests/test_parser.c tests/test_parser.h include/parser.h
-# uses src/parser.c, tests/test_parser.c and include/parser.h to make an executable 	
-	$(CC) $(CFLAGS) $^ -o $@
+	$(CC) $(CFLAGS) $^ -o $(BIN_DIR)/$@
 
 clean_build:
 	-rm -r $(BUILD_DIR)

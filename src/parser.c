@@ -77,11 +77,7 @@ short int parse_location(const char *loc_arg)
 	}
 }
 
-#if (DEBUG_LVL == 3)
 extern int isnumber(char *string)
-#else
-int isnumber(char *string)
-#endif
 {
 	/* Checks if all chars in a string are a digit i.e. if the whole string
 	 * is a number. Similarly to is[digit, alpha etc] returns 1 if args is a

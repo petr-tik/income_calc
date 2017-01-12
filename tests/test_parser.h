@@ -7,7 +7,6 @@
 
 int test_isnumber(char *string);
 
-void test_isnumber_harness(char *arr_of_strings[TEST_CASES_ISNUMBER],
-			   int *expected_results[TEST_CASES_ISNUMBER]);
+int test_isnumber_harness();
 
 #endif
