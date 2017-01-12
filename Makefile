@@ -100,6 +100,7 @@ test_unit_parser: CPPFLAGS+=-DDEBUG_LVL=3
 #test_unit_parser: CPPFLAGS+=-DDEBUG_LVL=3
 test_unit_parser: src/parser.c tests/test_parser.c tests/test_parser.h include/parser.h
 	$(CC) $(CFLAGS) $^ -o $(BIN_DIR)/$@
+	./$(BIN_DIR)/$@
 
 clean_build:
 	-rm -r $(BUILD_DIR)
