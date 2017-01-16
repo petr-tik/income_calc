@@ -1,3 +1,9 @@
+## 8/1/17 
+
+On the plane back from tenerife:
+added more docker commands to the makefile, need to try building and deploying a docker container on someone else's machine, so I can test if it compiles and runs on different OS'es
+    Thinking about using debug_lvl=3 for extern macros, which will allow unit testing per function
+
 ## 7/1/17
 
 Been playing around with Docker and clang. Now have a versatile makefile to make executables in a minimal container (with make, bash and gcc). 
