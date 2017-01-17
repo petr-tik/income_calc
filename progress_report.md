@@ -1,8 +1,15 @@
+## 10/1/17
+
+Started primitive testing by compiling a small executable with test cases to examine the correctness of different components. The overall idea is to have ```bash make test```, which calls all the subtargets like ```make test_parser```, ```make test_calc``` and others. 
+
+
 ## 8/1/17 
 
 On the plane back from tenerife:
 added more docker commands to the makefile, need to try building and deploying a docker container on someone else's machine, so I can test if it compiles and runs on different OS'es
-    Thinking about using debug_lvl=3 for extern macros, which will allow unit testing per function
+
+Thinking about using debug_lvl=3 for extern macros, which will allow unit testing per function
+
 
 ## 7/1/17
 
