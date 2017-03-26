@@ -232,6 +232,9 @@ int main(int argc, char *argv[])
 		   or the options were checked to be missing information - break
 		   now */
 		printf("ERROR! Invalid arguments\n");
+		show_help();
+		free(salary_n_taxes_ptr);
+		free(arg_options_ptr);
 		exit(1);
 	}
 // DEBUGGING ONLY
